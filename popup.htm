@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>	Facebook chat customiser</title>
+<link rel="stylesheet" href="./popup/popup.css">
+<body>
+<header id="demo_titlebar" style="min-height: 30px;">
+	<div style="display: inline-block">
+		<strong>FCC Options</strong>
+	</div>
+	<div style="display: inline-block;float: right">
+		<input title="color of titlebar of chat-bar" type="color" id="color_titlebar" value="#333333">
+	</div>
+</header>
+<section id="demo_background">
+	<div class="main">
+		<div class="options">
+			<div class="option">
+				 <div class="leftpane">Title-bar Transparency</div>
+				 <div class="rightpane">
+					<input type="range" value="70" max="100" min="0" id="op_titlebar" >
+					&nbsp;&nbsp;&nbsp;<span id="value_op_titlebar"> 75% </span>
+				 </div>
+			</div>
+			
+			<div class="option">
+				 <div class="leftpane">Chat-box Height </div>
+				 <div class="rightpane">
+					<input title="height of the chat-box [max 550px]"  type="range" id="height" min="300" max="550" value="500">	&nbsp;&nbsp;&nbsp;<span id="value_height">500px</span>
+				 </div>
+			</div>
+			<div class="option">
+				<div class="leftpane"> Body Transparency</div>
+				<div class="rightpane">
+					<input type="range" value="100" max="100" min="0" id="op_background" >
+					&nbsp;&nbsp;&nbsp;<span id="value_op_background"> 100% </span>
+				</div>
+			</div>
+			<div class="option">
+				<div class="leftpane">Chat Body Background</div>
+				<div class="rightpane">
+					<input title="color of titlebar of chat-bar" type="color" id="color_background" value="#edeff4">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button href="#" id="resetbgcolor">reset</button>
+				</div>
+			</div>
+			<br>
+			<div style="display: block;padding:0px;min-height: 50px">
+				<div style="float: left;background-image: url(profilepic.jpg);width: 32px;height:32px;display: inline-block" id="examplepic"></div>
+				<div id="examplefont" style="background: white;border: 1px silver solid;border-radius: 4px;float:left;margin-left:5px;height:22px;font-family:Calibri;font-size:8pt;padding: 5px 10px 5px 10px;margin-bottom: 10px;display: inline-block ">This is example text</div>
+			</div>
+			<div class="option">	
+					<input type="color" id="fontcolor" value="#000000">
+					<select id="font">
+						<option value="Calibri">Calibri</option>
+						<option value="Consolas">Consolas</option>
+						<option value="Aerial">Aerial</option>
+						<option value="Times new roman">Times new roman</option>
+						<option value="Monospace">Monospace</option>
+						<option value="Comic Sans MS">Comics Sans MS</option>
+						<option value="Cursive">Cursive</option>
+						<option value="Sans-serif">Sans-serif</option>
+						<option value="fantasy">fantasy</option>
+						<option value="serif">serif</option>
+						<option value="lucida calligraphy">lucida calligraphy</option>
+						<option value="lucida console">lucida console</option>	
+						<option value="Palatino">Palatino</option>
+						<option value="Helvetica">Helvetica</option>
+						<option value="Gadget">Gadget</option>
+						<option value="Impact">Impact</option>
+						<option value="Verdana">Verdana</option>
+						<option value="Tahoma">Tahoma</option>
+						<option value="Lucida Sans Unicode">Lucida Sans Unicode</option>
+						<option value="Trebuchet MS">Trebuchet MS</option>
+						<option value="MS Sans Serif">MS Sans Serif</option>
+						<option value="Palatino Linotype">Palatino Linotype</option>
+						<option value="Arial Black">Arial Black</option>
+						<option value="Courier New">Courier New</option>				
+					</select>
+					<select id="fontsize">
+						<option value="8">8 px</option>
+						<option value="9">9 px</option>
+						<option value="10">10 px</option>
+						<option value="11">11 px</option>
+						<option value="12">12 px</option>
+						<option value="13">13 px</option>
+						<option value="14">14 px</option>
+						<option value="15">15 px</option>
+						<option value="16">16 px</option>
+						<option value="17">17 px</option>
+						<option value="18">18 px</option>
+				</select>
+				<input type="checkbox" id="isDPCircular" title="enable to have circular display pictures in chat box" > 
+				<div id='cpilabel' style="cursor:pointer;display:inline">Circular</span>
+			</div>
+			<div class='option' style='margin-top:5px;'>
+				<input type='checkbox' id='isInpageEnabled'> <div id="iielabel" style="cursor:pointer;display:inline">Enable inPage Customisation (Reload Required)</div>
+			</div>
+			<hr style="margin-bottom: 2px" color="silver" size="1">
+			<br>
+			<div>
+				<br>
+			</div>
+			<div style="text-align:right;padding-right:5px">
+				<img src="ajax-loader-6.gif" id="loader" height="19" width="100" style="float:left;margin-top:9px;display:none">
+				<input type="button" id="apply" value="Apply">
+			</div>
+			
+	</div>
+</section>
+<footer>
+<img src="icon.png" width="50px" style="float: right;display: inline;margin: 3px;">
+<div style="display:inline-block;width:80%;padding: 6px 10px 0px 4px;">
+<span style="color:black">Facebook Chat customiser:</span> change the layout of facebook chat the way you want it to be.
+	Developed by <a href="http://cistoner.org" target="blank" title="cistoner.org">Cistoner</a> |
+	<cite><i><a href="http://cistoner.org/projects/facebook-chat-customiser" target="blank" title="visit project page">visit</a></i></cite> | <a href="https://github.com/cistoner/fcc-bug-tracker/issues?state=open" target="blank" title="Report issues to our bug tracker">Report Issues</a>
+</div>
+</footer>
+<!-- Support message for count = 2, system -->
+<div id="supportmessage">
+	It feels great you are using this. We'd love it if you could take a moment to support us by sharing this.
+	<textarea style="width:95%;height:100px;overflow:hidden;" id="textarea">
+	I am using Facebook Chat Customiser by #cistoner.
+	If you are frustrated with tiny Facebook chat layout try Facebook chat customiser aka #fcc.
+	Download directly from chrome store:  https://chrome.google.com/webstore/detail/facebook-chat-customiser/cfdnmijlibfnjggfeipmjhkbieegjhbd
+	</textarea>
+	<br>
+	Or you can just <div style="display: inline-block" id="sharebuttonhide">  click here </div> and hide this message. We promise not to show this message again. <br><br>
+	Thanks for help!
+</div>
+
+<script type="text/javascript" src="./jquery-2.1.0.min.js"></script>
+<script src="./popup/popup.js"></script>
+</body>
+</head>
+</html>
