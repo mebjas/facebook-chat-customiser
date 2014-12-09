@@ -368,6 +368,17 @@ $(document).ready(function() {
 	$("#iielabel,#cpilabel").click(function(){
 		$(this).prev('input[type="checkbox"').click();
 	});
+
+	$('.sharebutton').on('click', function() {
+		var cat = $(this).attr('data');
+		if (cat == 'fb') {
+			chrome.tabs.create({ url: "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcistoner.org%2Fprojects%2Ffacebook-chat-customiser%2F" });
+		} else if (cat == 'tw') {
+			chrome.tabs.create({ url: "https://twitter.com/home?status=Customise+facebook+chatbox+on+the+go%2C+try+facebok+chat+customiser+http%3A%2F%2Fcistoner.org%2Fprojects%2Ffacebook-chat-customiser%2F"});
+		} else if (cat == 'g+') {
+			chrome.tabs.create({ url: "https://plus.google.com/share?url=cistoner.org/projects/facebook-chat-customiser/"});
+		}
+	});
 });
 
 
