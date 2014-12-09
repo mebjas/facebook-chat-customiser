@@ -8,8 +8,6 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 	 * this will result in earl loading of all anims
 	 */
 	
-	//chrome.tabs.executeScript(tabId, {code:'clicked(false);'});
-	
 	if (changeInfo.status === 'complete') {
 	
 		/**
@@ -23,6 +21,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
     }
 });
 
+/**
+ * Code to get information about UI change
+ * TASK: Report it to all open tabs as well
+ */
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   	if (typeof request.signature != 'undefined'
   		&& request.signature == 'cryptofcc') {

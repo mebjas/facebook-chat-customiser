@@ -136,18 +136,16 @@ function clicked(broadcast)
 	fcc._getProperties();	// Get Properties 
 	
 	/** applying height **/
-	var obj = document.getElementsByClassName('fbDockChatTabFlyout');
+	$('.fbDockChatTabFlyout').css('height', property.height +'px');
+
 	var textObj = document.getElementsByClassName('_552m');
 	var height = new Array();
 
-	for (i=0 ; i < obj.length; i++)	{
+	for (i=0 ; i < $('.fbDockChatTabFlyout').length; i++)	{
 		height[i] = textObj[i].style.height;
-		obj[i].style.height = property.height +'px';
 	}
-
 	var countHeight = 0;
 	var innerObj = document.getElementsByClassName('fbNubFlyoutBody');
-
 	for (i = 1; i < (innerObj.length - 1); i++) {
 		innerObj[i].style.height = (property.height - 37 - parseInt(height[countHeight++])) + 'px';
 
@@ -156,10 +154,11 @@ function clicked(broadcast)
 		}
 	}
 
-	innerObj = document.getElementsByClassName('fbNubFlyoutOuter');
-	for (i = 0; i < innerObj.length; i++) {
-		innerObj[i].style.height = property.height + 'px';
-	}
+	$('.fbNubFlyoutOuter').css('height', property.height + 'px');
+	// innerObj = document.getElementsByClassName('fbNubFlyoutOuter');
+	// for (i = 0; i < innerObj.length; i++) {
+	// 	innerObj[i].style.height = property.height + 'px';
+	// }
 
 	for (i = 0; i < textObj.length; i++) {
 		textObj[i].style.height = parseInt(height[i]);
@@ -176,14 +175,15 @@ function clicked(broadcast)
 	$("._5w1r").css("color", property.fontcolor);
 	$("._5w1r").css("font-size", property.fontsize +"px");
 	$("._5w1r").css("font-family", property.font);
-	
+
 
 	/**
 	 * to make rounded dp
 	 */
 	if (property.isDPCircular) {
 		$("._5ys_ img").css("border-radius","18px");
-		$("._5ys_").css("background-image","none");
+		// to remove the border image behind the dp in chatbox
+		$("body").append("<style type='text/css'>._5ys_::after{background-image: none}</style>")
 	} else {
 		$("._5ys_ img").css("border-radius","none");
 	}

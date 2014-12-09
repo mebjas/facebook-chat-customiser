@@ -1,7 +1,7 @@
 /**
  * facebook chat extension version 2.0.1
  */
-
+// @todo - remove the notifications
 /**
  * Set of all properties that are used / set / or get
  */
@@ -240,14 +240,14 @@ var notif = {
   type: "basic",
   title: "Facebook Chat Customiser says:",
   message: "Thankyou for installing Facebook Chat Customiser! We have made some awesome changes in fcc, which is now butter smooth and feature rich. We'd are very glad people are loving it. ",
-  iconUrl: "icon.png"
+  iconUrl: "./resources/icon.png"
 }
 
 /**
  * for displaying notification for the first time load and 
  * for maintaining count
  */
-if(property.isFirsttime) {
+if( property.isFirsttime ) {
 	property.isFirsttime = 'NO';
 	property.count = 1;
 	fcc._setProperties();
@@ -373,40 +373,6 @@ $(document).ready(function() {
 	});
 });
 
-
-
-
-//================================================================ 
-// Code for google analytics
-//================================================================ 
-/*
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-37229689-2']);
-_gaq.push(['_trackPageview']);
-
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = 'https://ssl.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-*/
-
-
-
-
-
-//================================================================ 
-// Code for sharing via fb
-//================================================================ 
-$("#sharebuttonhide").click(function () {
-	$("#supportmessage").fadeOut();
-});
-
-
-if (property.count === 10) {
-	//open share dialog in new tab
-	chrome.tabs.executeScript( { code: 'var win=window.open("https://www.facebook.com/dialog/feed?app_id=145634995501895&display=page&link=http://cistoner.org/projects/facebook-chat-customiser&redirect_uri=https://facebook.com", "_blank");win.focus();'});	
-}
 
 //===========================================================
 // -- Message recieving and broadcasting

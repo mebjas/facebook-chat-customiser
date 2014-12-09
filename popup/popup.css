@@ -1,5 +1,11 @@
-body{width:400px;margin:0px;padding:0px;color:#627bae;font-family: Calibri }	
-header{
+body {
+	width:400px;
+	margin:0px;
+	padding:0px;
+	color:#627bae;
+	font-family: Calibri;
+}	
+header {
 	display:block;margin:0px;
 	background: #627bae;
 	padding: 10px 10px 5px 20px;
@@ -16,27 +22,43 @@ footer
 	font-family: calibri;
 	border-top: 1px solid silver;
 }
-a{color:black;text-decoration:none}
-a:hover{color:#627bae}
-span{color:#627bae}
-span.strong{font-weight:bold}
-.options{padding: 10px;}
-input{cursor:pointer}
-input[type="number"]{padding:2px 10px 2px 10px;color:#627bae;width: 40px;cursor:pointer}
-input[type="button"]{padding:5px 10px 5px 10px;width: 80px;text-align:center;cursor:pointer}
-#section_{background:#edeff4;color:black;}
-.option .rightpane
-{
+a {
+	color: black;
+	text-decoration: none;
+}
+a:hover {
+	color:#627bae;
+}
+span {
+	color:#627bae;
+}
+span.strong {
+	font-weight : bold;
+}
+.options {padding: 10px;}
+input {cursor:pointer}
+input[type="number"] {
+	padding:2px 10px 2px 10px;
+	color:#627bae;
+	width: 40px;
+	cursor:pointer;
+}
+input[type="button"] {
+	padding:5px 10px 5px 10px;
+	width: 80px;
+	text-align:center;
+	cursor:pointer;
+}
+#section_ {background:#edeff4;color:black;}
+.option .rightpane {
 	display: inline-block;
 	width:50%;
 }
-.option .leftpane
-{
+.option .leftpane {
 	display: inline-block;
 	width:40%;
 }
-#supportmessage
-{
+#supportmessage {
 	position: fixed;
 	width: 97%;
 	height: 100%;
@@ -49,8 +71,7 @@ input[type="button"]{padding:5px 10px 5px 10px;width: 80px;text-align:center;cur
 	font-family: Calibri;
 	display: none;
 }
-#sharebutton,#sharebuttonhide
-{
+#sharebutton,#sharebuttonhide {
 	background: green;
 	padding: 2px 10px 2px 10px;
 	border-radius: 14px;
@@ -58,16 +79,13 @@ input[type="button"]{padding:5px 10px 5px 10px;width: 80px;text-align:center;cur
 	color: #17BF3E;
 	cursor: pointer;
 }
-#sharebutton:hover,#sharebuttonhide:hover
-{
+#sharebutton:hover,#sharebuttonhide:hover {
 	color: white;
 	background: #138808;
 }
-#iielabel,#cpilabel
-{
+#iielabel,#cpilabel {
 	-webkit-transition: text-decoration .8s;
 }
-#iielabel:hover,#cpilabel:hover
-{
+#iielabel:hover,#cpilabel:hover {
 	text-decoration: underline;
 }

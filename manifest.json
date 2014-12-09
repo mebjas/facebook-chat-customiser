@@ -1,33 +1,32 @@
 {
   "name": "Facebook chat customiser",
   "description": "frustated with tiny facebooks chat layout. Use this to customise your facebook chat, enlarge it,change colors, the way you want!",
-  "version": "3.5.1",
+  "version": "3.5.2",
   "short_name": "fcc",
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-  
+
   "permissions": [
     "activeTab",
-	"tabs",
-	"*://www.facebook.com/*",
-	"storage",
-	"notifications"
+  	"tabs",
+  	"*://www.facebook.com/*",
+  	"storage",
+  	"notifications"
   ],
   "content_scripts": [
     {
       "matches": ["*://www.facebook.com/*"],
       "css": ["mystyles.css"],
-	  "js": ["jquery-2.1.0.min.js","cs.js"],
-	  "all_frames": true
+  	  "js": ["jquery-2.1.0.min.js","cs.js"],
+  	  "all_frames": true
     }
   ],
   "background": {
-	"matches": ["*://www.facebook.com/*"],
+	  "matches": ["*://www.facebook.com/*"],
     "scripts": ["background.js"]
   },
   "browser_action": {
     "default_title": "Facebook chat customiser",
-	"default_icon": "icon_.png",
-    "default_popup": "popup.htm"
+    "default_icon": "resources/icon_.png",
+    "default_popup": "popup/index.htm"
   },
   "web_accessible_resources": [
     "inject/inject-menu.htm"
