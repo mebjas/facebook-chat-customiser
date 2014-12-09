@@ -206,9 +206,6 @@ var fcc = {
 		});
 
 		property.count = property.count + 1;
-		if (property.count === 2)
-			$("#supportmessage").fadeIn();
-
 		fcc._setProperties();	// Refresh properties to localStorage
 	}
 };

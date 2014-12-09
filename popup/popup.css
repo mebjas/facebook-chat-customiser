@@ -89,3 +89,7 @@ input[type="button"] {
 #iielabel:hover,#cpilabel:hover {
 	text-decoration: underline;
 }
+.sharebutton {
+	cursor: pointer;
+	
+}
