@@ -19,6 +19,9 @@
   	  "all_frames": true
     }
   ],
+  "icons": {
+    "128": "resources/icon_.png"
+  },
   "background": {
 	  "matches": ["*://www.facebook.com/*"],
     "scripts": ["background.js"]
