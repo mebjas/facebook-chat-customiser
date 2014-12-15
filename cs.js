@@ -1,6 +1,7 @@
 /**
  * chrome extension main js code that do all the tasks
- * written by minhaz aka hector09
+ * @content-script for chrome extension
+ * Written by minhaz aka hector09 <minhazav@gmail.com>
  */
 
 var freq = 300;
@@ -32,10 +33,6 @@ var fcc = {
 	}
 };
 
-function chromeStorageTolocalStorage() {}
-function localStorageToChromeStorage() {}
-function updatePropertyFromChromeStorage() {}
-
 
 //==================variables ends here ===============
 // main function that draw all data
@@ -48,30 +45,33 @@ function clicked(broadcast) {
 
 	var value;
 	if ((value = fcc._getls('fcc_props')) != false) {
-		console.log('fcc props retrieved from localStorage');
 		property = JSON.parse(value);
-		console.log(property);
 		chrome.storage.local.set(property);
 		// clear the localStorage
 		localStorage.removeItem('fcc_props');
 	}
 
 	chrome.storage.local.get(function(obj) {
-		property = obj;
-		console.log('property object retrieved!');
-	
+		if (typeof obj.count != "undefined")
+			property = obj;
+
 		/** applying height **/
 		$('.fbDockChatTabFlyout').css('height', property.height +'px');
-		var textObj = document.getElementsByClassName('_552m');
-		var height = new Array();
 
-		for (i=0 ; i < $('.fbDockChatTabFlyout').length; i++)	{
-			height[i] = textObj[i].style.height;
+		var height = new Array();
+		var attachmentBoxHeight = new Array();
+
+		var chatboxes = document.getElementsByClassName('fbDockChatTabFlyout');
+		for(i = 0 ; i < chatboxes.length; i++) {
+			height[i] = chatboxes[i].getElementsByClassName('_552h')[0].offsetHeight;
+			attachmentBoxHeight[i] = chatboxes[i].getElementsByClassName('fbNubFlyoutAttachments')[0].offsetHeight;
 		}
+		var textObj = document.getElementsByClassName('_552h');
+
 		var countHeight = 0;
 		var innerObj = document.getElementsByClassName('fbNubFlyoutBody');
 		for (i = 1; i < (innerObj.length - 1); i++) {
-			innerObj[i].style.height = (property.height - 37 - parseInt(height[countHeight++])) + 'px';
+			innerObj[i].style.height = (property.height - 30 - parseInt(height[i-1]) - parseInt(attachmentBoxHeight[i-1])) + 'px';
 
 			if (property.background !== '') {
 				innerObj[i].style.background = property.background;
@@ -80,9 +80,9 @@ function clicked(broadcast) {
 
 		$('.fbNubFlyoutOuter').css('height', property.height + 'px');
 
-		for (i = 0; i < textObj.length; i++) {
-			textObj[i].style.height = parseInt(height[i]);
-		}
+		// for (i = 0; i < textObj.length; i++) {
+		// 	textObj[i].style.height = parseInt(height[i]);
+		// }
 		
 		/** applying color **/
 		innerObj = document.getElementsByClassName('fbNubFlyoutTitlebar');
@@ -109,6 +109,9 @@ function clicked(broadcast) {
 		}
 
 		$(".fbNubFlyoutInner").css('background','none');
+
+		// Make changes to inline menu
+		fcc._resetUI();
 
 		// --inform the new settings to the extension
 		if (broadcast) {
@@ -147,6 +150,7 @@ function _isValidObject(prop) {
 	return false;
 }
 
+// Recieve the UI change broadcast information
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
   	if (typeof request.signature != 'undefined'
@@ -158,14 +162,11 @@ chrome.runtime.onMessage.addListener(
   			return;
   		}
   		property = request;
-  		fcc._updateSettings(false);
   		fcc._resetUI();
   		sendResponse({code: 200});
   	} else {
   		sendResponse({code: 403});
   	}     
  });
-
-console.log('cs.js is executed ');
 
 

@@ -1,5 +1,6 @@
 /**
- * facebook chat extension version 2.0.1
+ * pop.js script
+ * Written by minhaz aka hector09 (or mebjas) <minhazav@gmail.com>
  */
 
 /**
@@ -119,9 +120,10 @@ var fcc = {
 	 */
 	_init: function() {
 		chrome.storage.local.get(function(obj) {
-			if (typeof obj != "undefined" || obj != null) {
+			if (typeof obj.count != "undefined") {
 				property = obj;
 			}
+
 			fcc._resetUI();			// Modify UI accodingly
 			property.count++;
 			fcc._setProperties();	// Refresh properties to localStorage
@@ -176,6 +178,7 @@ function applyChanges()
 		    chrome.tabs.sendMessage(tabs[i].id, property);
 		}
 	});
+	chrome.tabs.executeScript( { code: "clicked(true);"});
 	// hide the loader icon
 	$("#loader").fadeOut();
 
@@ -290,29 +293,3 @@ $(document).ready(function() {
 		}
 	});
 });
-
-
-//===========================================================
-// -- Message recieving and broadcasting
-//===========================================================
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-  	console.log("message recieved");
-  	console.log(sender);
-  	console.log(request);
-  	console.log(sendResponse);
-
-  	if (_getDomain(sender.tab.url).indexOf('facebook') !== -1
-  		&& typeof request.signature != 'undefined'
-  		&& request.signature == 'cryptofcc') {
-  		property = request;
-  		fcc._setProperties();
-  		fcc._resetUI();
-  		//-- inform this to others
-  		applyChanges();
-
-  		sendResponse({code: 200});
-  	} else {
-  		sendResponse({code: 403});
-  	}     
- });

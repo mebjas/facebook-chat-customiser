@@ -1,6 +1,9 @@
 /**
- * these scripts will be executed when page load is completed 
- **/
+ * @injected-script: this script will be injected to facebook page by background script
+ * these scripts will be executed when page load is completeds
+ * Written by minhaz aka hector09 (or mebjas) <minhazav@gmail.com>
+ */
+
 
 // Default properties
 var property = {
@@ -86,7 +89,7 @@ var fcc = {
 			return localStorage[key];
 		return false;
 	},
-	
+
 	/**
 	 * -- send this setting to extension
 	 * -- extension should send this to all other tabs
@@ -109,7 +112,7 @@ var fcc = {
 		$("#fcc_txtcolor").val(property.fontcolor);
 		$("#fcc_bg_trans").val(property.op_background);
 		$("#fcc_font").val(property.font);
-		$("#fcc_fontsize").val(property.font);
+		$("#fcc_fontsize").val(property.fontsize);
 	}
 };
 

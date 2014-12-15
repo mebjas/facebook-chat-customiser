@@ -1,6 +1,7 @@
 /**
- * Background Script
+ * @background-script
  * code to trigger the clicked() on page load
+ * Written by minhaz aka hector09 (or mebjas) <minhazav@gmail.com>
  */
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 
