@@ -65,12 +65,6 @@ function rgbToHex(r, g, b) {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
-function setTempLS() {
-
-}
-
-
-
 var fcc = {
 	_getTimeStamp: function(){
 		return new Date().getTime();
@@ -92,83 +86,16 @@ var fcc = {
 			return localStorage[key];
 		return false;
 	},
-	/**
-	 * Gets properties <- localStorage
-	 * Called on init
-	 * @param: void
-	 * @return: void
-	 */
-	_getProperties: function() {
-		var value = '';
-
-		if((value = fcc._getls('isFirsttime')) !== false)
-			property.isFirsttime = false;
-		if((value = fcc._getls('count')) !== false) {
-			property.count = parseInt(value);
-		}
-		if ((value = fcc._getls('height')) !== false)
-			property.height = parseInt(value);
-		if ((value = fcc._getls('font')) !== false)
-			property.font = value;
-		if ((value = fcc._getls('fontsize')) !== false)
-			property.fontsize = parseInt(value);
-		if ((value = fcc._getls('fontcolor')) !== false)
-			property.fontcolor = value;
-		if ((value = fcc._getls('op_titlebar')) !== false)
-			property.op_titlebar = value;
-		if ((value = fcc._getls('op_background')) !== false)
-			property.op_background = value;
-		if ((value = fcc._getls('color_titlebar')) !== false)
-			property.color_titlebar = value;
-		if ((value = fcc._getls('color_background')) !== false)
-			property.color_background = value;
-		if ((value = fcc._getls('isDPCircular')) !== false) {
-			property.isDPCircular = (value.length > 0) ? true : false;
-		} else {
-			property.isDPCircular = false;
-		}
-		if ((value = fcc._getls('isInpageEnabled')) !== false) {
-			property.isInpageEnabled = (value.length > 0) ? true : false;
-		} else {
-			property.isInpageEnabled = false;
-		}
-
-		// Calculate titlebar and background value
-		var hex = hexToRgb(property.color_titlebar);
-		property.titlebar = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
-									+(property.op_titlebar/100) +')';
-		// -- background
-		hex = hexToRgb(property.color_background);
-		property.background = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
-									+(property.op_background/100) +')';	
-
-		if ((value = fcc._getls('timestamp')) !== false)
-			property.timestamp = parseInt(value);	
-	},
+	
 	/**
 	 * -- send this setting to extension
 	 * -- extension should send this to all other tabs
 	 * -- extension should send ack
 	 */
 	_updateSettings: function(clickTrue) {
-
 		property.timestamp = fcc._getTimeStamp();
 
-		localStorage['height'] = property.height;
-		localStorage['font'] = property.font;
-		localStorage['fontsize'] = property.fontsize;
-		localStorage['fontcolor'] = property.fontcolor;
-		localStorage['op_titlebar'] = property.op_titlebar;
-		localStorage['op_background'] = property.op_background;
-		localStorage['color_titlebar'] = property.color_titlebar;
-		localStorage['color_background'] = property.color_background;
-		localStorage['isDPCircular'] = (property.isDPCircular) ? 'true' : '';
-		localStorage['isInpageEnabled'] = (property.isInpageEnabled) ? 'true' : '';
-		// Set the values of titlebar and background
-		localStorage['titlebar'] = property.titlebar;
-		localStorage['background'] = property.background;
-		localStorage['timestamp'] = property.timestamp;
-
+		localStorage['fcc_props'] = JSON.stringify(property);
 		// -- reflect changes in UI
 		if (clickTrue) clicked(true);
 		else clicked(false);
@@ -194,8 +121,6 @@ var fcc = {
  */
  $(document).ready(function(){
  	if(document.getElementsByClassName('fcc_toolpabel').length == 0){
- 		// Update properties as per localStorage
- 		fcc._getProperties();
  		if (property.isInpageEnabled) {
  			
 			var url = chrome.extension.getURL("inject/inject-menu.htm");

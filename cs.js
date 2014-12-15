@@ -2,27 +2,6 @@
  * chrome extension main js code that do all the tasks
  * written by minhaz aka hector09
  */
- var property = {
-	isfirstTime: true,
-	count: 0,
-	maxheight: 550,
-	height: 500,
-	font: 'Calibri',
-	fontsize: 12,
-	fontcolor: 'black',
-	op_titlebar: 75,
-	op_background: 100,
-	color_titlebar: '#0080c0',
-	color_background: '#edeff4',
-	default_color_background: '#edeff4',
-	default_op_background: 100,
-	background: '',
-	titlebar: '',
-	isDPCircular: true,
-	isInpageEnabled: true,
-	signature: 'cryptofcc',
-	timestamp: 0
-};
 
 var freq = 300;
 function hexToRgb(hex) {
@@ -41,78 +20,6 @@ var fcc = {
 		return false;
 	},
 	/**
-	 * Gets properties <- localStorage
-	 * Called on init
-	 * @param: void
-	 * @return: void
-	 */
-	_getProperties: function() {
-		var value = '';
-
-		if((value = fcc._getls('isFirsttime')) !== false)
-			property.isFirsttime = false;
-		if((value = fcc._getls('count')) !== false) {
-			property.count = parseInt(value);
-		}
-		if ((value = fcc._getls('height')) !== false)
-			property.height = parseInt(value);
-		if ((value = fcc._getls('font')) !== false)
-			property.font = value;
-		if ((value = fcc._getls('fontsize')) !== false)
-			property.fontsize = parseInt(value);
-		if ((value = fcc._getls('fontcolor')) !== false)
-			property.fontcolor = value;
-		if ((value = fcc._getls('op_titlebar')) !== false)
-			property.op_titlebar = value;
-		if ((value = fcc._getls('op_background')) !== false)
-			property.op_background = value;
-		if ((value = fcc._getls('color_titlebar')) !== false)
-			property.color_titlebar = value;
-		if ((value = fcc._getls('color_background')) !== false)
-			property.color_background = value;
-		if ((value = fcc._getls('isDPCircular')) !== false) {
-			property.isDPCircular = (value.length > 0) ? true : false;
-		} else {
-			property.isDPCircular = false;
-		}
-		if ((value = fcc._getls('isInpageEnabled')) !== false) {
-			property.isInpageEnabled = (value.length > 0) ? true : false;
-		} else {
-			property.isInpageEnabled = false;
-		}
-
-		// Calculate titlebar and background value
-		var hex = hexToRgb(property.color_titlebar);
-		property.titlebar = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
-									+(property.op_titlebar/100) +')';
-		// -- background
-		hex = hexToRgb(property.color_background);
-		property.background = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
-									+(property.op_background/100) +')';	
-
-		if ((value = fcc._getls('timestamp')) !== false)
-			property.timestamp = parseInt(value);	
-	},
-	_updateSettings: function() {
-		localStorage['height'] = property.height;
-		localStorage['font'] = property.font;
-		localStorage['fontsize'] = property.fontsize;
-		localStorage['fontcolor'] = property.fontcolor;
-		localStorage['op_titlebar'] = property.op_titlebar;
-		localStorage['op_background'] = property.op_background;
-		localStorage['color_titlebar'] = property.color_titlebar;
-		localStorage['color_background'] = property.color_background;
-		localStorage['isDPCircular'] = (property.isDPCircular) ? 'true' : '';
-		localStorage['isInpageEnabled'] = (property.isInpageEnabled) ? 'true' : '';
-		// Set the values of titlebar and background
-		localStorage['titlebar'] = property.titlebar;
-		localStorage['background'] = property.background;
-		localStorage['timestamp'] = property.timestamp;
-
-		// -- reflect changes in UI
-		clicked(false);
-	},
-	/**
 	 * Function to set properties as set to the inpage menu
 	 */
 	_resetUI: function() {
@@ -125,75 +32,89 @@ var fcc = {
 	}
 };
 
-
+function chromeStorageTolocalStorage() {}
+function localStorageToChromeStorage() {}
+function updatePropertyFromChromeStorage() {}
 
 
 //==================variables ends here ===============
 // main function that draw all data
 // @param: broadcase, bool -true if settings need to be broadcasted
-function clicked(broadcast)
-{
-	fcc._getProperties();	// Get Properties 
-	
-	/** applying height **/
-	$('.fbDockChatTabFlyout').css('height', property.height +'px');
+function clicked(broadcast) {
+	// Steps
+	// 1. Check if there is some temporary property set in local Storage
+	// 		1.1 YES - get the property, set it to chromeStorge, clear localStorage
+	// 		1.2 NO - get property from chromeStorage if there else use default pro
 
-	var textObj = document.getElementsByClassName('_552m');
-	var height = new Array();
-
-	for (i=0 ; i < $('.fbDockChatTabFlyout').length; i++)	{
-		height[i] = textObj[i].style.height;
+	var value;
+	if ((value = fcc._getls('fcc_props')) != false) {
+		console.log('fcc props retrieved from localStorage');
+		property = JSON.parse(value);
+		console.log(property);
+		chrome.storage.local.set(property);
+		// clear the localStorage
+		localStorage.removeItem('fcc_props');
 	}
-	var countHeight = 0;
-	var innerObj = document.getElementsByClassName('fbNubFlyoutBody');
-	for (i = 1; i < (innerObj.length - 1); i++) {
-		innerObj[i].style.height = (property.height - 37 - parseInt(height[countHeight++])) + 'px';
 
-		if (property.background !== '') {
-			innerObj[i].style.background = property.background;
+	chrome.storage.local.get(function(obj) {
+		property = obj;
+		console.log('property object retrieved!');
+	
+		/** applying height **/
+		$('.fbDockChatTabFlyout').css('height', property.height +'px');
+		var textObj = document.getElementsByClassName('_552m');
+		var height = new Array();
+
+		for (i=0 ; i < $('.fbDockChatTabFlyout').length; i++)	{
+			height[i] = textObj[i].style.height;
 		}
-	}
+		var countHeight = 0;
+		var innerObj = document.getElementsByClassName('fbNubFlyoutBody');
+		for (i = 1; i < (innerObj.length - 1); i++) {
+			innerObj[i].style.height = (property.height - 37 - parseInt(height[countHeight++])) + 'px';
 
-	$('.fbNubFlyoutOuter').css('height', property.height + 'px');
-	// innerObj = document.getElementsByClassName('fbNubFlyoutOuter');
-	// for (i = 0; i < innerObj.length; i++) {
-	// 	innerObj[i].style.height = property.height + 'px';
-	// }
+			if (property.background !== '') {
+				innerObj[i].style.background = property.background;
+			}
+		}
 
-	for (i = 0; i < textObj.length; i++) {
-		textObj[i].style.height = parseInt(height[i]);
-	}
-	
-	/** applying color **/
-	innerObj = document.getElementsByClassName('fbNubFlyoutTitlebar');
-	for (i = 0; i < innerObj.length; i++) {
-		innerObj[i].style.background = property.titlebar;
-		innerObj[i].style.border = "1px solid " +property.titlebar;
-	}
-	
-	innerObj = document.getElementsByClassName('_5yl5');
-	$("._5w1r").css("color", property.fontcolor);
-	$("._5w1r").css("font-size", property.fontsize +"px");
-	$("._5w1r").css("font-family", property.font);
+		$('.fbNubFlyoutOuter').css('height', property.height + 'px');
+
+		for (i = 0; i < textObj.length; i++) {
+			textObj[i].style.height = parseInt(height[i]);
+		}
+		
+		/** applying color **/
+		innerObj = document.getElementsByClassName('fbNubFlyoutTitlebar');
+		for (i = 0; i < innerObj.length; i++) {
+			innerObj[i].style.background = property.titlebar;
+			innerObj[i].style.border = "1px solid " +property.titlebar;
+		}
+		
+		innerObj = document.getElementsByClassName('_5yl5');
+		$("._5w1r").css("color", property.fontcolor);
+		$("._5w1r").css("font-size", property.fontsize +"px");
+		$("._5w1r").css("font-family", property.font);
 
 
-	/**
-	 * to make rounded dp
-	 */
-	if (property.isDPCircular) {
-		$("._5ys_ img").css("border-radius","18px");
-		// to remove the border image behind the dp in chatbox
-		$("body").append("<style type='text/css'>._5ys_::after{background-image: none}</style>")
-	} else {
-		$("._5ys_ img").css("border-radius","none");
-	}
+		/**
+		 * to make rounded dp
+		 */
+		if (property.isDPCircular) {
+			$("._5ys_ img").css("border-radius","18px");
+			// to remove the border image behind the dp in chatbox
+			$("body").append("<style type='text/css'>._5ys_::after{background-image: none}</style>")
+		} else {
+			$("._5ys_ img").css("border-radius","none");
+		}
 
-	$(".fbNubFlyoutInner").css('background','none');
+		$(".fbNubFlyoutInner").css('background','none');
 
-	// --inform the new settings to the extension
-	if (broadcast) {
-		_informExtension(true);
-	}
+		// --inform the new settings to the extension
+		if (broadcast) {
+			_informExtension(true);
+		}
+	});
 }
 
 function _informExtension(iterate){
@@ -244,5 +165,7 @@ chrome.runtime.onMessage.addListener(
   		sendResponse({code: 403});
   	}     
  });
+
+console.log('cs.js is executed ');
 
 

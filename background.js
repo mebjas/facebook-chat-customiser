@@ -1,4 +1,5 @@
 /**
+ * Background Script
  * code to trigger the clicked() on page load
  */
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
@@ -9,7 +10,6 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 	 */
 	
 	if (changeInfo.status === 'complete') {
-	
 		/**
 		 * injecting code once load has been completed
 		 */

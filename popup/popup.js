@@ -1,7 +1,7 @@
 /**
  * facebook chat extension version 2.0.1
  */
-// @todo - remove the notifications
+
 /**
  * Set of all properties that are used / set / or get
  */
@@ -63,81 +63,15 @@ var fcc = {
 		return false;
 	},
 	/**
-	 * Gets properties <- localStorage
-	 * Called on init
-	 * @param: void
-	 * @return: void
-	 */
-	_getProperties: function() {
-		var value = '';
-
-		if((value = fcc._getls('isFirsttime')) !== false)
-			property.isFirsttime = false;
-		if((value = fcc._getls('count')) !== false) {
-			property.count = parseInt(value);
-		}
-		if ((value = fcc._getls('height')) !== false)
-			property.height = parseInt(value);
-		if ((value = fcc._getls('font')) !== false)
-			property.font = value;
-		if ((value = fcc._getls('fontsize')) !== false)
-			property.fontsize = parseInt(value);
-		if ((value = fcc._getls('fontcolor')) !== false)
-			property.fontcolor = value;
-		if ((value = fcc._getls('op_titlebar')) !== false)
-			property.op_titlebar = value;
-		if ((value = fcc._getls('op_background')) !== false)
-			property.op_background = value;
-		if ((value = fcc._getls('color_titlebar')) !== false)
-			property.color_titlebar = value;
-		if ((value = fcc._getls('color_background')) !== false)
-			property.color_background = value;
-		if ((value = fcc._getls('isDPCircular')) !== false) {
-			property.isDPCircular = (value.length > 0) ? true : false;
-		} else {
-			property.isDPCircular = false;
-		}
-		if ((value = fcc._getls('isInpageEnabled')) !== false) {
-			property.isInpageEnabled = (value.length > 0) ? true : false;
-		} else {
-			property.isInpageEnabled = false;
-		}
-
-		// Calculate titlebar and background value
-		var hex = hexToRgb(property.color_titlebar);
-		property.titlebar = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
-									+(property.op_titlebar/100) +')';
-		// -- background
-		hex = hexToRgb(property.color_background);
-		property.background = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
-									+(property.op_background/100) +')';
-
-		if ((value = fcc._getls('timestamp')) !== false)
-			property.timestamp = parseInt(value);	
-	},
-	/**
-	 * Sets properties -> localStorage
+	 * Sets properties -> chromeStorage
 	 * @param: void
 	 * @return: void
 	 */
 	_setProperties: function() {
-		localStorage['isFirsttime'] = 'NO';
-		localStorage['count'] = property.count;
-		localStorage['height'] = property.height;
-		localStorage['font'] = property.font;
-		localStorage['fontsize'] = property.fontsize;
-		localStorage['fontcolor'] = property.fontcolor;
-		localStorage['op_titlebar'] = property.op_titlebar;
-		localStorage['op_background'] = property.op_background;
-		localStorage['color_titlebar'] = property.color_titlebar;
-		localStorage['color_background'] = property.color_background;
-		localStorage['isDPCircular'] = (property.isDPCircular) ? 'true' : '';
-		localStorage['isInpageEnabled'] = (property.isInpageEnabled) ? 'true' : '';
-		localStorage['timestamp'] = property.timestamp;
-
-		// Set the values of titlebar and background
-		localStorage['titlebar'] = property.titlebar;
-		localStorage['background'] = property.background;
+		chrome.storage.local.set(property, function() {
+			console.log('chrome property set!!');
+			console.log(property);
+		})
 	},
 	/**
 	 * Resets the UI, according to new properties
@@ -176,37 +110,23 @@ var fcc = {
 		}
 
 		document.getElementById('isInpageEnabled').checked = property.isInpageEnabled;
-
-		//document.getElementById('isInpageEnabled').checked = property.isInpageEnabled;
 	},
+
 	/**
 	 * function that initialises the fcc
 	 * @param: void
 	 * @return: void
 	 */
 	_init: function() {
-		fcc._getProperties();	// Init the properties
-
-		// -- check if any tab has more latest settings
-
-		fcc._resetUI();			// Modify UI accodingly
-		chrome.tabs.query({}, function(tabs) {
-			for (var i = 0; i < tabs.length; i++) {
-			    chrome.tabs.sendMessage(tabs[i].id, {signature: property.signature, need: true}, function(response) {
-			    	if (typeof response.signature !== undefined
-			    		&& response.signature == property.signature
-			    		&& ( response.timestamp > property.timestamp 
-			    			|| (property.timestamp == 0 && response.timestamp != 0))) {
-			    		property = response;
-			    		fcc._setProperties();
-			    		fcc._resetUI();
-			    	}
-			    });
+		chrome.storage.local.get(function(obj) {
+			if (typeof obj != "undefined" || obj != null) {
+				property = obj;
 			}
+			fcc._resetUI();			// Modify UI accodingly
+			property.count++;
+			fcc._setProperties();	// Refresh properties to localStorage
 		});
-
-		property.count = property.count + 1;
-		fcc._setProperties();	// Refresh properties to localStorage
+		
 	}
 };
 
@@ -232,24 +152,13 @@ fcc._setBackgroundProperties = function() {
 // init the process
 fcc._init();
 
-// for chrome notification
-var notif = {
-  type: "basic",
-  title: "Facebook Chat Customiser says:",
-  message: "Thankyou for installing Facebook Chat Customiser! We have made some awesome changes in fcc, which is now butter smooth and feature rich. We'd are very glad people are loving it. ",
-  iconUrl: "./resources/icon.png"
-}
 
 /**
- * for displaying notification for the first time load and 
- * for maintaining count
+ * for reloading the page when extension runs for the first time
  */
-if( property.isFirsttime ) {
+if( property.count == 1 ) {
 	property.isFirsttime = 'NO';
-	property.count = 1;
 	fcc._setProperties();
-
-	chrome.notifications.create("notiffcc", notif, function getnotifid(id){});
 	chrome.tabs.executeScript( { code: "document.location.reload();"});
 }
 
@@ -257,7 +166,7 @@ if( property.isFirsttime ) {
 function applyChanges()
 {
 	$("#loader").fadeIn();
-	// -- set properties to ls
+	// -- set properties to chromeStorage
 	property.timestamp = fcc._getTimeStamp();
 	fcc._setProperties();
 
@@ -295,6 +204,7 @@ $(document).ready(function() {
 	// -- titlebar transparency
 	$("#color_titlebar").change(function(){
 		property.color_titlebar = $(this).val();
+		// Calculate titlebar and background value
 		fcc._setTitleBarProperties();
 		fcc._resetUI();
 	});
@@ -387,7 +297,11 @@ $(document).ready(function() {
 //===========================================================
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
+  	console.log("message recieved");
   	console.log(sender);
+  	console.log(request);
+  	console.log(sendResponse);
+
   	if (_getDomain(sender.tab.url).indexOf('facebook') !== -1
   		&& typeof request.signature != 'undefined'
   		&& request.signature == 'cryptofcc') {
