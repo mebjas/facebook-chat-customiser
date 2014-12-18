@@ -60,18 +60,20 @@ function clicked(broadcast) {
 
 		var height = new Array();
 		var attachmentBoxHeight = new Array();
+		var innerHeaders = new Array();
 
 		var chatboxes = document.getElementsByClassName('fbDockChatTabFlyout');
 		for(i = 0 ; i < chatboxes.length; i++) {
 			height[i] = chatboxes[i].getElementsByClassName('_552h')[0].offsetHeight;
 			attachmentBoxHeight[i] = chatboxes[i].getElementsByClassName('fbNubFlyoutAttachments')[0].offsetHeight;
+			innerHeaders[i] = chatboxes[i].getElementsByClassName('fbNubFlyoutHeader')[0].offsetHeight;
 		}
 		var textObj = document.getElementsByClassName('_552h');
 
 		var countHeight = 0;
 		var innerObj = document.getElementsByClassName('fbNubFlyoutBody');
 		for (i = 1; i < (innerObj.length - 1); i++) {
-			innerObj[i].style.height = (property.height - 30 - parseInt(height[i-1]) - parseInt(attachmentBoxHeight[i-1])) + 'px';
+			innerObj[i].style.height = (property.height - 30 - parseInt(height[i-1]) - parseInt(attachmentBoxHeight[i-1])) - parseInt(innerHeaders[i-1]) + 'px';
 
 			if (property.background !== '') {
 				innerObj[i].style.background = property.background;
