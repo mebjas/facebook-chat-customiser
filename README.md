@@ -18,7 +18,7 @@ facebook-chat-customiser
 **A V Minhaz** - `minhazav@gmail.com`
 
 [![github](http://cdn.flaticon.com/png/64/33600.png)](https://github.com/mebjas)
-[![linkedin](http://www.icon2s.com/img64/64x64-black-white-android-linkedin.png)](in.linkedin.com/in/minhazav)
+[![linkedin](http://www.icon2s.com/img64/64x64-black-white-android-linkedin.png)](http://in.linkedin.com/in/minhazav)
 [![twitter](http://orionwinesoftware.com/wp-content/uploads/2012/10/picons03.png)](https://twitter.com/minhazav)
 ###License
 ```
