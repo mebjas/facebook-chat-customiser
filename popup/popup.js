@@ -127,6 +127,7 @@ var fcc = {
 
 			fcc._resetUI();			// Modify UI accodingly
 			property.count++;
+			fcc._setTitleBarProperties();
 			fcc._setProperties();	// Refresh properties to localStorage
 		});
 		
@@ -142,6 +143,8 @@ fcc._setTitleBarProperties = function() {
 	var hex = hexToRgb(property.color_titlebar);
 	property.titlebar = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
 									+(property.op_titlebar/100) +')';
+	// Update demo for this
+	$("#exampletitlebar").css("background-color", property.titlebar);
 };
 
 fcc._setBackgroundProperties = function() {
@@ -205,6 +208,11 @@ $(document).ready(function() {
 			$(this).parent(".s").addClass("active");
 		}
 	});
+	$(".s_demo").prepend("<span class='demotext'>demo</span>");
+	// -- pick up random names from my friends name and put it in chat customiser
+	var frnames = ['minhaz', 'abhinav', 'ashutosh', 'ayush', 'bhavuk', 'aditya', 'aditi', 'arushi', 'dhruv', 'hitesh', 'arshad', 'sharvari', 'richa', 'nida'];
+	var r = (Math.round(Math.random()*1000) % frnames.length);
+	$("#exampletitlebar").html(frnames[r]);
 
 	// -- main submit button
 	$("#apply").click(function() {

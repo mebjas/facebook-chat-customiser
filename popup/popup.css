@@ -117,7 +117,8 @@ header {
 	color: white;
 	padding: 10px 15px;
 	font-family: sans-serif;
-	font-weight: 100;
+	font-weight: 300;
+	font-size: 11pt;
 	background-image: url(../resources/chevron-down.png);
 	background-repeat: no-repeat;
 	background-size: 16px;
@@ -141,4 +142,39 @@ header {
 .s_demo {
 	display: block;
 	margin-bottom: 10px;
+	position: relative;
+}
+
+/** 
+---------------------------------------------------------
+default values for examples
+---------------------------------------------------------
+**/
+span.demotext {
+	position: absolute;
+	top: -10px;
+	right: -10px;
+	text-transform: uppercase;
+	font-family: sans-serif;
+	color: white;
+	background: rgba(0, 0, 0, 0.28);
+	padding: 5px;
+	font-size: 8pt;
+}
+#exampletitlebar {
+	background-repeat: no-repeat;
+	background-image: url(../resources/dot.png);
+	font-family: Helvetica, Arial, 'lucida grande', tahoma, verdana, arial, sans-serif;
+	font-size: 12px;
+	height: 20px;
+	line-height: 16px;
+	padding: 4px 0px 0px 18px;
+	background-size: 23px;
+	background-position: left 0px top -1px;
+	background-color: #3B5998;
+	color: white;
+	font-weight: bold;
+	width: 151px;
+	border-radius: 3px 3px 0px 0px;
+	text-transform: capitalize;
 }
