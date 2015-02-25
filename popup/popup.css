@@ -4,15 +4,6 @@ body {
 	padding:0px;
 	color:#627bae;
 	font-family: Calibri;
-}	
-header {
-	display:block;margin:0px;
-	background: #627bae;
-	padding: 10px 10px 5px 20px;
-	color: white;
-	font-family: calibri;
-	font-size: 18px;
-	-webkit-transition: background .6s;
 }
 footer
 {
@@ -35,7 +26,10 @@ span {
 span.strong {
 	font-weight : bold;
 }
-.options {padding: 10px;}
+.options {
+	padding: 10px;
+	display: block;
+}
 input {cursor:pointer}
 input[type="number"] {
 	padding:2px 10px 2px 10px;
@@ -90,6 +84,61 @@ input[type="button"] {
 	text-decoration: underline;
 }
 .sharebutton {
+	cursor: pointer;	
+}
+
+header {
+	display: block;
+	margin: 0px;
+	background: #0C81C8;
+	padding: 10px 0px 0px 35px;
+	color: white;
+	font-family: fantasy;
+	font-size: 18px;
+	-webkit-transition: background .6s;
+	background-image: url(../resources/cog.png);
+	background-repeat: no-repeat;
+	background-size: 25px;
+	background-position: 8px 8px;
+	min-height: 30px;
+}
+.s {
+	display: block;
+	background: white;
+	color: black;
+	padding: 0px;
+	margin: 0px;
+}
+.s.active > .s_header {
+	background-image: url(../resources/chevron-up.png);
+}
+.s_header {
+	background-color: black;
+	color: white;
+	padding: 10px 15px;
+	font-family: sans-serif;
+	font-weight: 100;
+	background-image: url(../resources/chevron-down.png);
+	background-repeat: no-repeat;
+	background-size: 16px;
+	background-position: right 10px top 5px;
+	margin: 0px;
+}
+.s_header:hover {
+	background-color: rgba(4, 93, 157, 0.67);
 	cursor: pointer;
-	
+}
+.s_section {
+	display: none;
+	padding: 10px;
+	background: rgba(192, 192, 192, 0.31);
+	border: none;
+	border-bottom: 1px solid black;
+}
+.s.active > .s_section {
+	display: block;
+}
+.s_demo {
+	display: block;
+	margin-bottom: 10px;
 }

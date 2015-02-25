@@ -100,7 +100,8 @@ var fcc = {
 		$("#color_titlebar").val(property.color_titlebar);
 
 		// -- set the titlebar and background demo
-		$("#demo_titlebar").css('background', property.titlebar);
+		// @todo - change this to demo titlebar
+		// $("#demo_titlebar").css('background-color', property.titlebar);
 		$("#demo_background").css('background', property.background);
 
 		document.getElementById('isDPCircular').checked = property.isDPCircular;
@@ -193,6 +194,18 @@ function applyChanges()
 // Code for adding event listeners to onchange event
 //================================================================
 $(document).ready(function() {
+	// Provide functionality to UI menu panels
+	$(".s .s_header").on('click', function() {
+		var astatus = $(this).parent(".s").attr("class");
+		if (typeof astatus != "undefined" && astatus.indexOf('active') != -1) {
+			$(this).parent(".s").removeClass("active");
+			return false;
+		} else {
+			$(".s.active").removeClass("active");
+			$(this).parent(".s").addClass("active");
+		}
+	});
+
 	// -- main submit button
 	$("#apply").click(function() {
 		applyChanges();

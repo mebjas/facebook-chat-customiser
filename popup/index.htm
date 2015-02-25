@@ -1,28 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>	Facebook chat customiser </title>
+<title>Facebook chat customiser</title>
 <link rel="stylesheet" href="./popup.css">
+<style type="text/css">
+
+</style>
 <body>
-<header id="demo_titlebar" style="min-height: 30px;">
+<header id="demo_titlebar">
 	<div style="display: inline-block">
-		<strong>Facebook Chat Customiser</strong>
-	</div>
-	<div style="display: inline-block;float: right">
-		<input title="color of titlebar of chat-bar" type="color" id="color_titlebar" value="#333333">
+		<strong> 
+			Facebook Chat Customiser - Options
+		</strong>
 	</div>
 </header>
-<section id="demo_background">
-	<div class="main">
-		<div class="options">
+<section>
+	<div class="s __titlebar active">
+		<div class="s_header">Chat titlebar</div>
+		<div class="s_section">
+			<div class="s_demo">
+				
+			</div>
 			<div class="option">
-				 <div class="leftpane">Title-bar Transparency</div>
+				 <div class="leftpane">Transparency</div>
 				 <div class="rightpane">
 					<input type="range" value="70" max="100" min="0" id="op_titlebar" >
 					&nbsp;&nbsp;&nbsp;<span id="value_op_titlebar"> 75% </span>
 				 </div>
 			</div>
-			
+			<div class="option">
+				 <div class="leftpane">Background</div>
+				 <div class="rightpane">
+					<input title="background color of titlebar of chat-bar" type="color" id="color_titlebar" value="#333333">
+				 </div>
+			</div>
+			<div class="option">
+				 <div class="leftpane">Color</div>
+				 <div class="rightpane">
+					<input title="color of text in titlebar of chat-bar" type="color" id="color_titlebar_text" value="#ffffff">
+				 </div>
+			</div>
+		</div>
+	</div>
+	<div class="s body">
+		<div class="s_header">Chat body</div>
+		<div class="s_section">
+			<div class="s_demo">
+				
+			</div>
 			<div class="option">
 				 <div class="leftpane">Chat-box Height </div>
 				 <div class="rightpane">
@@ -45,11 +70,18 @@
 					<button href="#" id="resetbgcolor">reset</button>
 				</div>
 			</div>
-			<br>
-			<div style="display: block;padding:0px;min-height: 50px">
-				<div style="float: left;background-image: url(../resources/profilepic.jpg);width: 32px;height:32px;display: inline-block" id="examplepic"></div>
-				<div id="examplefont" style="background: white;border: 1px silver solid;border-radius: 4px;float:left;margin-left:5px;height:22px;font-family:Calibri;font-size:8pt;padding: 5px 10px 5px 10px;margin-bottom: 10px;display: inline-block ">This is example text</div>
+		</div>
+	</div>
+	<div class="s message_y">
+		<div class="s_header">Chat message - yours</div>
+		<div class="s_section">
+			<div class="s_demo">
+				<div style="display: block;padding:0px;min-height: 110px;position: relative">
+					<div style="position: absolute; top: 4px;background-image: url(../resources/profilepic.jpg);width: 32px;height:32px;display: inline-block" id="examplepic"></div>
+					<div id="examplefont" style="background: white;border: 1px silver solid;border-radius: 4px;margin-left:5px;font-family:Calibri;font-size:8pt;padding: 5px 10px 5px 10px;margin-bottom: 10px;display: inline-block; max-width:200px; position: relative; top: 0px; left: 35px ">This is example message, this message is sent to you by the sender!</div>
+				</div>
 			</div>
+			
 			<div class="option">	
 					<input type="color" id="fontcolor" value="#000000">
 					<select id="font">
@@ -94,14 +126,42 @@
 				<input type="checkbox" id="isDPCircular" title="enable to have circular display pictures in chat box" > 
 				<div id='cpilabel' style="cursor:pointer;display:inline">Circular</span>
 			</div>
+		</div>
+	</div>
+	<div class="s message_s">
+		<div class="s_header">Chat message - senders</div>
+		<div class="s_section">
+			<div class="s_demo">
+				<div style="display: block;padding:0px;min-height: 100px;position: relative">
+					<div id="_examplefont" style="background: white;border: 1px silver solid;border-radius: 4px;margin-left:5px;font-family:Calibri;font-size:10pt;padding: 5px 10px 5px 10px;margin-bottom: 10px;display: inline-block; max-width:200px; position: absolute; top: 0px; right: 5px ">This is example message, this message is sent by you to the reciever!</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="s more">
+		<div class="s_header">More..</div>
+		<div class="s_section">
 			<div class='option' style='margin-top:5px;'>
 				<input type='checkbox' id='isInpageEnabled'> <div id="iielabel" style="cursor:pointer;display:inline">Enable inPage Customisation (Reload Required)</div>
 			</div>
-			<hr style="margin-bottom: 2px" color="silver" size="1">
-			<br>
-			<div>
-				<br>
+			<div class="option">
+				 <div class="leftpane">Import theme</div>
+				 <div class="rightpane">
+				 </div>
 			</div>
+			<div class="option">
+				 <div class="leftpane">Export current theme</div>
+				 <div class="rightpane">
+				 </div>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<section id="demo_background">
+	<div class="main">
+		<div class="options">
 			<div style="text-align:right;padding-right:5px">
 				<img src="../resources/ajax-loader-6.gif" id="loader" height="19" width="100" style="float:left;margin-top:9px;display:none">
 				<input type="button" id="apply" value="Apply">
@@ -110,18 +170,18 @@
 	</div>
 </section>
 <footer>
-<img src="../resources/icon.png" width="50px" style="float: right;display: inline;margin: 3px;">
-<div style="display:inline-block;width:80%;padding: 6px 10px 0px 4px;">
-<div style="padding: 5px 10px 5px 0px">
-	<img src="../resources/fb.png" class="sharebutton" data="fb" title="Share Facebook Chat Customiser on Facebook!">
-	<img src="../resources/twitter.png" class="sharebutton" data="tw" title="Share Facebook Chat Customiser on Twitter!">
-	<img src="../resources/gplus.png" class="sharebutton" data="g+"  title="Share Facebook Chat Customiser on Google Plus!">
-</div>
-<div >
-	<a href="https://github.com/cistoner/fcc-bug-tracker/issues?state=open" target="blank" title="Report issues to our bug tracker">Report Issues</a> |  
-	A product by <a href="http://cistoner.org/projects/facebook-chat-customiser" target="blank" title="cistoner.org">Cistoner</a>
-</div>
-</div>
+	<img src="../resources/icon.png" width="50px" style="float: right;display: inline;margin: 3px;">
+	<div style="display:inline-block;width:80%;padding: 6px 10px 0px 4px;">
+	<div style="padding: 5px 10px 5px 0px">
+		<img src="../resources/fb.png" class="sharebutton" data="fb" title="Share Facebook Chat Customiser on Facebook!">
+		<img src="../resources/twitter.png" class="sharebutton" data="tw" title="Share Facebook Chat Customiser on Twitter!">
+		<img src="../resources/gplus.png" class="sharebutton" data="g+"  title="Share Facebook Chat Customiser on Google Plus!">
+	</div>
+	<div >
+		<a href="https://github.com/cistoner/fcc-bug-tracker/issues?state=open" target="blank" title="Report issues to our bug tracker">Report Issues</a> |  
+		A product by <a href="http://cistoner.org/projects/facebook-chat-customiser" target="blank" title="cistoner.org">Cistoner</a>
+	</div>
+	</div>
 </footer>
 
 <script type="text/javascript" src="../jquery-2.1.0.min.js"></script>
