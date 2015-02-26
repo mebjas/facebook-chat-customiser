@@ -33,6 +33,7 @@ var fcc = {
 	}
 };
 
+var __c = 0;
 
 //==================variables ends here ===============
 // main function that draw all data
@@ -42,7 +43,7 @@ function clicked(broadcast) {
 	// 1. Check if there is some temporary property set in local Storage
 	// 		1.1 YES - get the property, set it to chromeStorge, clear localStorage
 	// 		1.2 NO - get property from chromeStorage if there else use default pro
-
+	console.log(++__c);
 	var value;
 	if ((value = fcc._getls('fcc_props')) != false) {
 		property = JSON.parse(value);
@@ -98,6 +99,8 @@ function clicked(broadcast) {
 		$("._1nc6 ._5w1r").css("font-family", property.message_s.font);
 		$("._1nc6 ._5w1r").css("background-image", "-webkit-linear-gradient(bottom, " +property.message_s.background[0] +", " +property.message_s.background[1] +")");
 
+		$("._1nc6 ._5w1r, ._1nc7 ._5w1r").css("webkit-box-shadow", "none");
+
 
 		// to remove <==== in box
 		$("._5wdf").addClass("__fcc_pd");
@@ -106,7 +109,7 @@ function clicked(broadcast) {
 		/**
 		 * to make rounded dp
 		 */
-		if (property.isDPCircular) {
+		if (property.message_r.isDPCircular) {
 			$("._5ys_ img").css("border-radius","18px");
 			// to remove the border image behind the dp in chatbox
 		} else {
