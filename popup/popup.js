@@ -7,7 +7,6 @@
  * Set of all properties that are used / set / or get
  */
 var reloadRequired = false;
-
 var property = {
 	isfirstTime: true,
 	count: 0,
@@ -27,11 +26,14 @@ var property = {
 			opacity: 100
 		}
 	},
+	message_r: {
+		color: 'black',
+		background: ['#FFFFFF', '#F9F9F9'],
+		isDPCircular: true,
+		fontsize: 12,
+		font: 'Calibri'
+	},
 	height: 500,
-	font: 'Calibri',
-	fontsize: 12,
-	fontcolor: 'black',
-	isDPCircular: true,
 	isInpageEnabled: true,
 	signature: 'cryptofcc',
 	timestamp: 0
@@ -90,13 +92,14 @@ var fcc = {
 		$("#height").val(property.height);
 		$("#value_height").html(property.height +'px');
 
-		$("#font").val(property.font);
-		$("#fontsize").val(property.fontsize);
-		$("#fontcolor").val(property.fontcolor);
+		$("#font").val(property.message_r.font);
+		$("#fontsize").val(property.message_r.fontsize);
+		$("#fontcolor").val(property.message_r.color);
 
-		$("#examplefont").css('font-family', property.font)
-							.css('font-size', property.fontsize +'px')
-							.css('color', property.fontcolor);
+		$("#examplefont").css('font-family', property.message_r.font)
+							.css('font-size', property.message_r.fontsize +'px')
+							.css('color', property.message_r.color);
+		$("#examplefont").css("background-image", "-webkit-linear-gradient(bottom, " +property.message_r.background[0] +", " +property.message_r.background[1] +")");
 
 		$("#op_titlebar").val(property.titlebar.opacity);
 		$("#value_op_titlebar").html(property.titlebar.opacity +'%');
@@ -112,8 +115,8 @@ var fcc = {
 		// @todo - change this to demo titlebar
 		// $("#demo_titlebar").css('background-color', property.titlebar);
 
-		document.getElementById('isDPCircular').checked = property.isDPCircular;
-		if (property.isDPCircular) {
+		document.getElementById('isDPCircular').checked = property.message_r.isDPCircular;
+		if (property.message_r.isDPCircular) {
 			$("#examplepic").css("border-radius","18px");
 		} else {
 			$("#examplepic").css("border-radius","none");
@@ -232,12 +235,6 @@ $(document).ready(function() {
 		applyChanges();
 	});
 
-	// -- fontcolor
-	$("#fontcolor").change(function(){
-		property.fontcolor = $(this).val();
-		fcc._resetUI();
-	});
-
 	// -- titlebar transparency
 	$("#color_titlebar").change(function(){
 		property.titlebar.background = $(this).val();
@@ -290,26 +287,35 @@ $(document).ready(function() {
 
 	// -- font
 	$("#font").change(function(){
-		property.font = $(this).val();
+		property.message_r.font = $(this).val();
 		fcc._resetUI();
 	});
 	$("#fontsize").change(function(){
-		property.fontsize = $(this).val();
+		property.message_r.fontsize = $(this).val();
 		fcc._resetUI();
 	});
 	$("#fontcolor").change(function(){
-		property.fontcolor = $(this).val();
+		property.message_r.color = $(this).val();
 		fcc._resetUI();
 	});
 	$("#isDPCircular").click(function(){
 		if (document.getElementById('isDPCircular').checked) {
-			property.isDPCircular = true;
+			property.message_r.isDPCircular = true;
 		} else {
-			property.isDPCircular = false;
+			property.message_r.isDPCircular = false;
 		}
 
 		fcc._resetUI();
 	});
+	$("#msg_r_1").change(function() {
+		property.message_r.background[0] = $(this).val();
+		fcc._resetUI();
+	});
+	$("#msg_r_2").change(function() {
+		property.message_r.background[1] = $(this).val();
+		fcc._resetUI();
+	});
+
 	$("#isInpageEnabled").click(function(){
 		if (document.getElementById('isInpageEnabled').checked) {
 			property.isInpageEnabled = true;
@@ -319,6 +325,7 @@ $(document).ready(function() {
 		reloadRequired = true;
 		fcc._resetUI();
 	});
+
 	$("#iielabel,#cpilabel").click(function(){
 		$(this).prev('input[type="checkbox"').click();
 	});

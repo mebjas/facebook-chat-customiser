@@ -26,10 +26,10 @@ var fcc = {
 	_resetUI: function() {
 		$("#fcc_height").val(property.height);
 		$("#fcc_topcolor").val(property.titlebar.background);
-		$("#fcc_txtcolor").val(property.fontcolor);
+		$("#fcc_txtcolor").val(property.message_r.color);
 		$("#fcc_bg_trans").val(property.body.opacity);
-		$("#fcc_font").val(property.font);
-		$("#fcc_fontsize").val(property.font);
+		$("#fcc_font").val(property.message_r.font);
+		$("#fcc_fontsize").val(property.message_r.fontsize);
 	}
 };
 
@@ -87,9 +87,12 @@ function clicked(broadcast) {
 		$(".fbNubFlyoutTitlebar").css("border", "1px solid " +property.titlebar.bg);
 		$(".titlebarText").css("color", property.titlebar.color);
 		
-		$("._5w1r").css("color", property.fontcolor);
-		$("._5w1r").css("font-size", property.fontsize +"px");
-		$("._5w1r").css("font-family", property.font);
+		$("._1nc7 ._5w1r").css("color", property.message_r.color);
+		$("._1nc7 ._5w1r").css("font-size", property.message_r.fontsize +"px");
+		$("._1nc7 ._5w1r").css("font-family", property.message_r.font);
+		$("._1nc7 ._5w1r").css("background-image", "-webkit-linear-gradient(bottom, " +property.message_r.background[0] +", " +property.message_r.background[1] +")");
+
+		//._1nc6 ._5w1r -- for send
 
 		// to remove <==== in box
 		$("._5wdf").addClass("__fcc_pd");

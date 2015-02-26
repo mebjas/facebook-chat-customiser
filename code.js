@@ -25,11 +25,14 @@ var property = {
 			opacity: 100
 		}
 	},
+	message_r: {
+		color: 'black',
+		background: ['#FFFFFF', '#F9F9F9'],
+		isDPCircular: true,
+		fontsize: 12,
+		font: 'Calibri'
+	},
 	height: 500,
-	font: 'Calibri',
-	fontsize: 12,
-	fontcolor: 'black',
-	isDPCircular: true,
 	isInpageEnabled: true,
 	signature: 'cryptofcc',
 	timestamp: 0
@@ -116,10 +119,10 @@ var fcc = {
 	_resetUI: function() {
 		$("#fcc_height").val(property.height);
 		$("#fcc_topcolor").val(property.titlebar.background);
-		$("#fcc_txtcolor").val(property.fontcolor);
+		$("#fcc_txtcolor").val(property.message_r.color);
 		$("#fcc_bg_trans").val(property.body.opacity);
-		$("#fcc_font").val(property.font);
-		$("#fcc_fontsize").val(property.fontsize);
+		$("#fcc_font").val(property.message_r.font);
+		$("#fcc_fontsize").val(property.message_r.fontsize);
 	}
 };
 
@@ -166,7 +169,7 @@ var fcc = {
 						fcc._updateSettings(true);
 					});
 					$("#fcc_txtcolor").change(function() {
-						property.fontcolor = $(this).val();
+						property.message_r.color = $(this).val();
 						fcc._updateSettings(true);
 					});
 					$("#fcc_bg_trans").change(function(){
@@ -175,11 +178,11 @@ var fcc = {
 						fcc._updateSettings(true);
 					});
 					$("#fcc_font").change(function(){
-						property.font = $(this).val();
+						property.message_r.font = $(this).val();
 						fcc._updateSettings(true);
 					});
 					$("#fcc_fontsize").change(function(){
-						property.fontsize = parseInt($(this).val());
+						property.message_r.fontsize = parseInt($(this).val());
 						fcc._updateSettings(true);
 					});
 				}
