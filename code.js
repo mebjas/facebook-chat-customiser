@@ -10,18 +10,25 @@ var property = {
 	isfirstTime: true,
 	count: 0,
 	maxheight: 550,
+	titlebar: {
+		color: 'white',
+		background: '#0080c0',
+		opacity: 75,
+		bg: ''
+	},
+	body: {
+		background: '#edeff4',
+		opacity: 100,
+		bg: '#edeff4',
+		default: {
+			background: '#edeff4',
+			opacity: 100
+		}
+	},
 	height: 500,
 	font: 'Calibri',
 	fontsize: 12,
 	fontcolor: 'black',
-	op_titlebar: 75,
-	op_background: 100,
-	color_titlebar: '#0080c0',
-	color_background: '#edeff4',
-	default_color_background: '#edeff4',
-	default_op_background: 100,
-	background: '',
-	titlebar: '',
 	isDPCircular: true,
 	isInpageEnabled: true,
 	signature: 'cryptofcc',
@@ -74,15 +81,15 @@ var fcc = {
 	},
 	// -- Level - 2, custom APIs starts here
 	_setTitleBarProperties: function() {
-		var hex = hexToRgb(property.color_titlebar);
-		property.titlebar = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
-										+(property.op_titlebar/100) +')';
+		var hex = hexToRgb(property.titlebar.background);
+		property.titlebar.bg = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
+										+(property.titlebar.opacity/100) +')';
 	},
 
 	_setBackgroundProperties: function() {
-		var hex = hexToRgb(property.color_background);
-		property.background = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
-										+(property.op_background/100) +')';
+		var hex = hexToRgb(property.body.background);
+		property.body.bg = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
+										+(property.body.opacity /100) +')';
 	},
 	_getls: function(key) {
 		if (localStorage[key])
@@ -108,9 +115,9 @@ var fcc = {
 	 */
 	_resetUI: function() {
 		$("#fcc_height").val(property.height);
-		$("#fcc_topcolor").val(property.color_titlebar);
+		$("#fcc_topcolor").val(property.titlebar.background);
 		$("#fcc_txtcolor").val(property.fontcolor);
-		$("#fcc_bg_trans").val(property.op_background);
+		$("#fcc_bg_trans").val(property.body.opacity);
 		$("#fcc_font").val(property.font);
 		$("#fcc_fontsize").val(property.fontsize);
 	}
@@ -153,7 +160,7 @@ var fcc = {
 					});
 
 					$("#fcc_topcolor").change(function() {
-						property.color_titlebar = $(this).val();
+						property.titlebar.background = $(this).val();
 						// -- calculate the top color
 						fcc._setTitleBarProperties();
 						fcc._updateSettings(true);
@@ -163,7 +170,7 @@ var fcc = {
 						fcc._updateSettings(true);
 					});
 					$("#fcc_bg_trans").change(function(){
-						property.op_background = $(this).val();
+						property.body.opacity = $(this).val();
 						fcc._setBackgroundProperties();
 						fcc._updateSettings(true);
 					});

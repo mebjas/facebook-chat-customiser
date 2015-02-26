@@ -12,18 +12,25 @@ var property = {
 	isfirstTime: true,
 	count: 0,
 	maxheight: 550,
+	titlebar: {
+		color: 'white',
+		background: '#0080c0',
+		opacity: 75,
+		bg: ''
+	},
+	body: {
+		background: '#edeff4',
+		opacity: 100,
+		bg: '#edeff4',
+		default: {
+			background: '#edeff4',
+			opacity: 100
+		}
+	},
 	height: 500,
 	font: 'Calibri',
 	fontsize: 12,
 	fontcolor: 'black',
-	op_titlebar: 75,
-	op_background: 100,
-	color_titlebar: '#0080c0',
-	color_background: '#edeff4',
-	default_color_background: '#edeff4',
-	default_op_background: 100,
-	background: '',
-	titlebar: '',
 	isDPCircular: true,
 	isInpageEnabled: true,
 	signature: 'cryptofcc',
@@ -86,23 +93,24 @@ var fcc = {
 		$("#font").val(property.font);
 		$("#fontsize").val(property.fontsize);
 		$("#fontcolor").val(property.fontcolor);
+
 		$("#examplefont").css('font-family', property.font)
 							.css('font-size', property.fontsize +'px')
 							.css('color', property.fontcolor);
 
-		$("#op_titlebar").val(property.op_titlebar);
-		$("#value_op_titlebar").html(property.op_titlebar +'%');
+		$("#op_titlebar").val(property.titlebar.opacity);
+		$("#value_op_titlebar").html(property.titlebar.opacity +'%');
 		
-		$("#op_background").val(property.op_background);
-		$("#value_op_background").html(property.op_background +'%');
+		$("#op_background").val(property.body.opacity);
+		$("#value_op_background").html(property.body.opacity +'%');
 		
-		$("#color_background").val(property.color_background);
-		$("#color_titlebar").val(property.color_titlebar);
+		$("#color_background").val(property.body.background);
+		$("#color_titlebar").val(property.titlebar.background);
+		$("#color_titlebar_text").val(property.titlebar.color);
 
 		// -- set the titlebar and background demo
 		// @todo - change this to demo titlebar
 		// $("#demo_titlebar").css('background-color', property.titlebar);
-		$("#demo_background").css('background', property.background);
 
 		document.getElementById('isDPCircular').checked = property.isDPCircular;
 		if (property.isDPCircular) {
@@ -140,17 +148,19 @@ var fcc = {
 
 // -- Level - 2, custom APIs starts here
 fcc._setTitleBarProperties = function() {
-	var hex = hexToRgb(property.color_titlebar);
-	property.titlebar = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
-									+(property.op_titlebar/100) +')';
+	var hex = hexToRgb(property.titlebar.background);
+	property.titlebar.bg = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
+									+(property.titlebar.opacity/100) +')';
 	// Update demo for this
-	$("#exampletitlebar").css("background-color", property.titlebar);
+	$("#exampletitlebar").css("background-color", property.titlebar.bg)
+				.css("color", property.titlebar.color);
 };
 
 fcc._setBackgroundProperties = function() {
-	var hex = hexToRgb(property.color_background);
-	property.background = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
-									+(property.op_background/100) +')';
+	var hex = hexToRgb(property.body.background);
+	property.body.bg = 'rgba(' +hex.r +',' +hex.g +',' +hex.b +',' 
+									+(property.body.opacity/100) +')';
+	$("#examplebody").css("background-color", property.body.bg);
 };
 
 
@@ -209,8 +219,11 @@ $(document).ready(function() {
 		}
 	});
 	$(".s_demo").prepend("<span class='demotext'>demo</span>");
+	$(".message_s .s_section .s_demo .demotext").css("width", "32px").css("left", "-10px");
+	// ^^ Placing DEMO in case of message sent by me demo
+
 	// -- pick up random names from my friends name and put it in chat customiser
-	var frnames = ['minhaz', 'abhinav', 'ashutosh', 'ayush', 'bhavuk', 'aditya', 'aditi', 'arushi', 'dhruv', 'hitesh', 'arshad', 'sharvari', 'richa', 'nida'];
+	var frnames = ['minhaz', 'abhinav', 'ashutosh', 'ayush', 'bhavuk', 'aditya', 'aditi', 'arushi', 'dhruv', 'hitesh', 'arshad', 'sharvari', 'richa', 'nida', 'divyanshu'];
 	var r = (Math.round(Math.random()*1000) % frnames.length);
 	$("#exampletitlebar").html(frnames[r]);
 
@@ -227,7 +240,14 @@ $(document).ready(function() {
 
 	// -- titlebar transparency
 	$("#color_titlebar").change(function(){
-		property.color_titlebar = $(this).val();
+		property.titlebar.background = $(this).val();
+		// Calculate titlebar and background value
+		fcc._setTitleBarProperties();
+		fcc._resetUI();
+	});
+
+	$("#color_titlebar_text").change(function() {
+		property.titlebar.color = $(this).val();
 		// Calculate titlebar and background value
 		fcc._setTitleBarProperties();
 		fcc._resetUI();
@@ -235,7 +255,7 @@ $(document).ready(function() {
 
 	// -- titlebar transparency
 	$("#op_titlebar").change(function(){
-		property.op_titlebar = $(this).val();
+		property.titlebar.opacity = $(this).val();
 		fcc._setTitleBarProperties();
 		fcc._resetUI();
 	});
@@ -248,22 +268,22 @@ $(document).ready(function() {
 
 	// -- background transparency
 	$("#op_background").change(function(){
-		property.op_background = $(this).val();
+		property.body.opacity = $(this).val();
 		fcc._setBackgroundProperties();
 		fcc._resetUI();
 	});
 
 	// -- titlebar transparency
 	$("#color_background").change(function(){
-		property.color_background = $(this).val();
+		property.body.background = $(this).val();
 		fcc._setBackgroundProperties();
 		fcc._resetUI();
 	});
 
 	// -- click on reset button
 	$("#resetbgcolor").click(function() {
-		property.op_background = property.default_op_background;
-		property.color_background = property.default_color_background;
+		property.body.opacity = property.body.default.opacity;
+		property.body.background = property.body.default.background;
 		fcc._setBackgroundProperties();
 		fcc._resetUI();
 	});

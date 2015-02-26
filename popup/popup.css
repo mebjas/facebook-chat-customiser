@@ -143,6 +143,8 @@ header {
 	display: block;
 	margin-bottom: 10px;
 	position: relative;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+	padding-bottom: 10px;
 }
 
 /** 
@@ -157,9 +159,19 @@ span.demotext {
 	text-transform: uppercase;
 	font-family: sans-serif;
 	color: white;
-	background: rgba(0, 0, 0, 0.28);
+	background: rgba(0, 0, 0, 0.58);
 	padding: 5px;
 	font-size: 8pt;
+	text-shadow: 0px 2px black;
+}
+#examplebody {
+	display: inline-block;
+	width: 200px;
+	height: 50px;
+	background: #edeff4;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	border-right: 1px solid rgb(174, 170, 170);
+	border-left: 1px solid rgb(174, 170, 170);
 }
 #exampletitlebar {
 	background-repeat: no-repeat;

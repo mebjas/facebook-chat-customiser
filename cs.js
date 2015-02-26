@@ -25,9 +25,9 @@ var fcc = {
 	 */
 	_resetUI: function() {
 		$("#fcc_height").val(property.height);
-		$("#fcc_topcolor").val(property.color_titlebar);
+		$("#fcc_topcolor").val(property.titlebar.background);
 		$("#fcc_txtcolor").val(property.fontcolor);
-		$("#fcc_bg_trans").val(property.op_background);
+		$("#fcc_bg_trans").val(property.body.opacity);
 		$("#fcc_font").val(property.font);
 		$("#fcc_fontsize").val(property.font);
 	}
@@ -75,29 +75,25 @@ function clicked(broadcast) {
 		for (i = 1; i < (innerObj.length - 1); i++) {
 			innerObj[i].style.height = (property.height - 30 - parseInt(height[i-1]) - parseInt(attachmentBoxHeight[i-1])) - parseInt(innerHeaders[i-1]) + 'px';
 
-			if (property.background !== '') {
-				innerObj[i].style.background = property.background;
+			if (property.body.bg !== '') {
+				innerObj[i].style.background = property.body.bg;
 			}
 		}
 
 		$('.fbNubFlyoutOuter').css('height', property.height + 'px');
-
-		// for (i = 0; i < textObj.length; i++) {
-		// 	textObj[i].style.height = parseInt(height[i]);
-		// }
 		
 		/** applying color **/
-		innerObj = document.getElementsByClassName('fbNubFlyoutTitlebar');
-		for (i = 0; i < innerObj.length; i++) {
-			innerObj[i].style.background = property.titlebar;
-			innerObj[i].style.border = "1px solid " +property.titlebar;
-		}
+		$(".fbNubFlyoutTitlebar").css("background", property.titlebar.bg);
+		$(".fbNubFlyoutTitlebar").css("border", "1px solid " +property.titlebar.bg);
+		$(".titlebarText").css("color", property.titlebar.color);
 		
-		innerObj = document.getElementsByClassName('_5yl5');
 		$("._5w1r").css("color", property.fontcolor);
 		$("._5w1r").css("font-size", property.fontsize +"px");
 		$("._5w1r").css("font-family", property.font);
 
+		// to remove <==== in box
+		$("._5wdf").addClass("__fcc_pd");
+		$("body").append("<style type='text/css'>.__fcc_pd:after, .__fcc_pd:before {width: 0px;}._5ys_:after{background-image: none}</style>");
 
 		/**
 		 * to make rounded dp
@@ -105,12 +101,12 @@ function clicked(broadcast) {
 		if (property.isDPCircular) {
 			$("._5ys_ img").css("border-radius","18px");
 			// to remove the border image behind the dp in chatbox
-			$("body").append("<style type='text/css'>._5ys_::after{background-image: none}</style>")
 		} else {
 			$("._5ys_ img").css("border-radius","none");
 		}
 
-		$(".fbNubFlyoutInner").css('background','none');
+		// Set the back background to zero
+		$(".fbNubFlyoutInner").css("background-color", "rgba(0,0,0,0)");
 
 		// Make changes to inline menu
 		fcc._resetUI();
@@ -142,12 +138,8 @@ function _isValidObject(prop) {
 		&& typeof prop.font != 'undefined'
 		&& typeof prop.fontcolor != 'undefined'
 		&& typeof prop.fontsize != 'undefined'
-		&& typeof prop.op_titlebar != 'undefined'
-		&& typeof prop.op_background != 'undefined'
-		&& typeof prop.color_titlebar != 'undefined'
-		&& typeof prop.color_background != 'undefined'
 		&& typeof prop.titlebar != 'undefined'
-		&& typeof prop.background != 'undefined')
+		&& typeof prop.body != 'undefined')
 			return true;
 	return false;
 }
