@@ -97,7 +97,7 @@ header {
 	background: #0C81C8;
 	padding: 10px 0px 0px 35px;
 	color: white;
-	font-family: fantasy;
+	font-family: calibri, fantasy;
 	font-size: 18px;
 	-webkit-transition: background .6s;
 	background-image: url(../resources/cog.png);
