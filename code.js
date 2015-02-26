@@ -52,11 +52,20 @@ var flags = {
 //===========================================================
 // -- request the extension for the current properties
 //===========================================================
+// Method to buffer the request and trigger in 500ms interval
+var isBufferOn = false;
+var timeoutObj;
 
 /** adding event listner to right-chat box */
 $(document).ready(function(){
 	$(document).on('DOMNodeInserted','.fbDockChatTabFlyout', function(event) {
-		clicked();
+		if (!isBufferOn) {
+			isBufferOn = true;
+			timeoutObj = setTimeout(function() {
+				clicked();
+				isBufferOn = false;
+			},500);
+		}
 	});
 });
 

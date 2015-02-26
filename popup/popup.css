@@ -12,6 +12,10 @@ footer
 	color: grey;
 	font-family: calibri;
 	border-top: 1px solid silver;
+		background-image: url(../resources/sic.png);
+	background-repeat: no-repeat;
+	background-size: 30%;
+	background-position: left 90px bottom 25px;
 }
 a {
 	color: black;
