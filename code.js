@@ -32,6 +32,12 @@ var property = {
 		fontsize: 12,
 		font: 'Calibri'
 	},
+	message_s: {
+		color: 'black',
+		background: ['#c7defe', '#e7f1fe'],
+		fontsize: 12,
+		font: 'Calibri'
+	},
 	height: 500,
 	isInpageEnabled: true,
 	signature: 'cryptofcc',
@@ -170,6 +176,7 @@ var fcc = {
 					});
 					$("#fcc_txtcolor").change(function() {
 						property.message_r.color = $(this).val();
+						property.message_s.color = $(this).val();
 						fcc._updateSettings(true);
 					});
 					$("#fcc_bg_trans").change(function(){
@@ -179,10 +186,12 @@ var fcc = {
 					});
 					$("#fcc_font").change(function(){
 						property.message_r.font = $(this).val();
+						property.message_s.font = $(this).val();
 						fcc._updateSettings(true);
 					});
 					$("#fcc_fontsize").change(function(){
 						property.message_r.fontsize = parseInt($(this).val());
+						property.message_s.fontsize = parseInt($(this).val());
 						fcc._updateSettings(true);
 					});
 				}

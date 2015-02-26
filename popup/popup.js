@@ -33,6 +33,12 @@ var property = {
 		fontsize: 12,
 		font: 'Calibri'
 	},
+	message_s: {
+		color: 'black',
+		background: ['#c7defe', '#e7f1fe'],
+		fontsize: 12,
+		font: 'Calibri'
+	},
 	height: 500,
 	isInpageEnabled: true,
 	signature: 'cryptofcc',
@@ -100,6 +106,16 @@ var fcc = {
 							.css('font-size', property.message_r.fontsize +'px')
 							.css('color', property.message_r.color);
 		$("#examplefont").css("background-image", "-webkit-linear-gradient(bottom, " +property.message_r.background[0] +", " +property.message_r.background[1] +")");
+		$("#msg_r_1").val(property.message_r.background[0]);
+		$("#msg_r_2").val(property.message_r.background[1]);
+
+		$("#_examplefont").css('font-family', property.message_s.font)
+							.css('font-size', property.message_s.fontsize +'px')
+							.css('color', property.message_s.color);
+		$("#_examplefont").css("background-image", "-webkit-linear-gradient(bottom, " +property.message_s.background[0] +", " +property.message_s.background[1] +")");
+		$("#msg_s_1").val(property.message_s.background[0]);
+		$("#msg_s_2").val(property.message_s.background[1]);
+
 
 		$("#op_titlebar").val(property.titlebar.opacity);
 		$("#value_op_titlebar").html(property.titlebar.opacity +'%');
@@ -313,6 +329,27 @@ $(document).ready(function() {
 	});
 	$("#msg_r_2").change(function() {
 		property.message_r.background[1] = $(this).val();
+		fcc._resetUI();
+	});
+
+	$("#_font").change(function(){
+		property.message_s.font = $(this).val();
+		fcc._resetUI();
+	});
+	$("#_fontsize").change(function(){
+		property.message_s.fontsize = $(this).val();
+		fcc._resetUI();
+	});
+	$("#_fontcolor").change(function(){
+		property.message_s.color = $(this).val();
+		fcc._resetUI();
+	});
+	$("#msg_s_1").change(function() {
+		property.message_s.background[0] = $(this).val();
+		fcc._resetUI();
+	});
+	$("#msg_s_2").change(function() {
+		property.message_s.background[1] = $(this).val();
 		fcc._resetUI();
 	});
 

@@ -92,7 +92,12 @@ function clicked(broadcast) {
 		$("._1nc7 ._5w1r").css("font-family", property.message_r.font);
 		$("._1nc7 ._5w1r").css("background-image", "-webkit-linear-gradient(bottom, " +property.message_r.background[0] +", " +property.message_r.background[1] +")");
 
-		//._1nc6 ._5w1r -- for send
+		// for sender
+		$("._1nc6 ._5w1r").css("color", property.message_s.color);
+		$("._1nc6 ._5w1r").css("font-size", property.message_s.fontsize +"px");
+		$("._1nc6 ._5w1r").css("font-family", property.message_s.font);
+		$("._1nc6 ._5w1r").css("background-image", "-webkit-linear-gradient(bottom, " +property.message_s.background[0] +", " +property.message_s.background[1] +")");
+
 
 		// to remove <==== in box
 		$("._5wdf").addClass("__fcc_pd");
