@@ -149,65 +149,67 @@ var fcc = {
  */
  $(document).ready(function(){
  	if(document.getElementsByClassName('fcc_toolpabel').length == 0){
- 		if (property.isInpageEnabled) {
- 			
-			var url = chrome.extension.getURL("inject/inject-menu.htm");
-			var xhrObj = new XMLHttpRequest();
-			xhrObj.open("GET",url);
-			xhrObj.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var menu = this.responseText;
-					var targetObj = document.getElementById('userNavigation');
-					var previousObj = targetObj.getElementsByClassName('menuDivider')[0];
-					var wrapper= document.createElement('div');
-					wrapper.innerHTML= menu;
-					var taregtDiv = wrapper.firstChild;
-					if (!flags.hasMenuBeenSet) {
-						flags.hasMenuBeenSet = true;
-						previousObj.parentNode.insertBefore(wrapper, previousObj.nextSibling);
-						// -- now menu has been loaded, check the properties in localStorage
-						// and reflect it to UI
-						fcc._resetUI();
+ 		clicked(false , function() {
+	 		if (property.isInpageEnabled) {
+	 			
+				var url = chrome.extension.getURL("inject/inject-menu.htm");
+				var xhrObj = new XMLHttpRequest();
+				xhrObj.open("GET",url);
+				xhrObj.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						var menu = this.responseText;
+						var targetObj = document.getElementById('userNavigation');
+						var previousObj = targetObj.getElementsByClassName('menuDivider')[0];
+						var wrapper= document.createElement('div');
+						wrapper.innerHTML= menu;
+						var taregtDiv = wrapper.firstChild;
+						if (!flags.hasMenuBeenSet) {
+							flags.hasMenuBeenSet = true;
+							previousObj.parentNode.insertBefore(wrapper, previousObj.nextSibling);
+							// -- now menu has been loaded, check the properties in localStorage
+							// and reflect it to UI
+							fcc._resetUI();
+						}
+
+						// -- Add event listener to new menu
+						$("#fcc_height").change(function() {
+							property.height = $(this).val();
+							// -- send this info to all
+							fcc._updateSettings(true);
+						});
+
+						$("#fcc_topcolor").change(function() {
+							property.titlebar.background = $(this).val();
+							// -- calculate the top color
+							fcc._setTitleBarProperties();
+							fcc._updateSettings(true);
+						});
+						$("#fcc_txtcolor").change(function() {
+							property.message_r.color = $(this).val();
+							property.message_s.color = $(this).val();
+							fcc._updateSettings(true);
+						});
+						$("#fcc_bg_trans").change(function(){
+							property.body.opacity = $(this).val();
+							fcc._setBackgroundProperties();
+							fcc._updateSettings(true);
+						});
+						$("#fcc_font").change(function(){
+							property.message_r.font = $(this).val();
+							property.message_s.font = $(this).val();
+							fcc._updateSettings(true);
+						});
+						$("#fcc_fontsize").change(function(){
+							property.message_r.fontsize = parseInt($(this).val());
+							property.message_s.fontsize = parseInt($(this).val());
+							fcc._updateSettings(true);
+						});
 					}
+				};
 
-					// -- Add event listener to new menu
-					$("#fcc_height").change(function() {
-						property.height = $(this).val();
-						// -- send this info to all
-						fcc._updateSettings(true);
-					});
-
-					$("#fcc_topcolor").change(function() {
-						property.titlebar.background = $(this).val();
-						// -- calculate the top color
-						fcc._setTitleBarProperties();
-						fcc._updateSettings(true);
-					});
-					$("#fcc_txtcolor").change(function() {
-						property.message_r.color = $(this).val();
-						property.message_s.color = $(this).val();
-						fcc._updateSettings(true);
-					});
-					$("#fcc_bg_trans").change(function(){
-						property.body.opacity = $(this).val();
-						fcc._setBackgroundProperties();
-						fcc._updateSettings(true);
-					});
-					$("#fcc_font").change(function(){
-						property.message_r.font = $(this).val();
-						property.message_s.font = $(this).val();
-						fcc._updateSettings(true);
-					});
-					$("#fcc_fontsize").change(function(){
-						property.message_r.fontsize = parseInt($(this).val());
-						property.message_s.fontsize = parseInt($(this).val());
-						fcc._updateSettings(true);
-					});
-				}
-			};
-
-			xhrObj.send();
-		}	
+				xhrObj.send();
+			}	
+		});
 	}
 });
 

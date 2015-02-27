@@ -38,12 +38,11 @@ var __c = 0;
 //==================variables ends here ===============
 // main function that draw all data
 // @param: broadcase, bool -true if settings need to be broadcasted
-function clicked(broadcast) {
+function clicked(broadcast, callback) {
 	// Steps
 	// 1. Check if there is some temporary property set in local Storage
 	// 		1.1 YES - get the property, set it to chromeStorge, clear localStorage
 	// 		1.2 NO - get property from chromeStorage if there else use default pro
-	console.log(++__c);
 	var value;
 	if ((value = fcc._getls('fcc_props')) != false) {
 		property = JSON.parse(value);
@@ -56,6 +55,9 @@ function clicked(broadcast) {
 		if (typeof obj.count != "undefined")
 			property = obj;
 
+		if (typeof callback != "undefined")
+			callback();
+		
 		/** applying height **/
 		$('.fbDockChatTabFlyout').css('height', property.height +'px');
 

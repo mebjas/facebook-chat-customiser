@@ -151,12 +151,17 @@ var fcc = {
 		classy_property.count = property.count;
 		classy_property.timestamp = property.timestamp;
 		classy_property.isfirstTime = property.isfirstTime;
+		classy_property.isInpageEnabled = property.isInpageEnabled;
+
 		funky_property.count = property.count;
 		funky_property.timestamp = property.timestamp;
 		funky_property.isfirstTime = property.isfirstTime;
+		funky_property.isInpageEnabled = property.isInpageEnabled;
+
 		default_property.count = property.count;
 		default_property.timestamp = property.timestamp;
 		default_property.isfirstTime = property.isfirstTime;
+		default_property.isInpageEnabled = property.isInpageEnabled;
 	},
 
 	_verify_json: function(jobj) {
