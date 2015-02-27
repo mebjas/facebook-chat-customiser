@@ -194,6 +194,9 @@ span.span_button:hover {
 	padding: 0px;
 	margin: 0px;
 	overflow: hidden;
+	position: absolute;
+	top: 5px;
+	right: 4px;
 }
 .__theme_view span {
 	display: inline-block;
@@ -211,6 +214,7 @@ span.span_button:hover {
 	padding: 5px 10px;
 	min-height: 16px;
 	font-size: 13pt;
+	position: relative;
 }
 /** 
 ---------------------------------------------------------
