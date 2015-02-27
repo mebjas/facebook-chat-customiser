@@ -141,6 +141,37 @@ var fcc = {
 		document.getElementById('isInpageEnabled').checked = property.isInpageEnabled;
 	},
 
+	_verify_json: function(jobj) {
+		return (typeof jobj.isfirstTime == "boolean"
+			&& typeof jobj.count == "number"
+			&& typeof jobj.maxheight == "number"
+			&& typeof jobj.titlebar.color == "string"
+			&& typeof jobj.titlebar.background == "string"
+			&& ( typeof jobj.titlebar.opacity == "number" || typeof jobj.titlebar.opacity == "string" )
+			&& typeof jobj.titlebar.bg == "string"
+			&& typeof jobj.body.background == "string"
+			&& (typeof jobj.body.opacity == "number" || typeof jobj.body.opacity == "string")
+			&& typeof jobj.body.bg == "string"
+			&& typeof jobj.body.default.background == "string"
+			&& (typeof jobj.body.default.opacity == "number" || typeof jobj.body.default.opacity == "string")
+			&& typeof jobj.message_r.color == "string"
+			&& typeof jobj.message_r.background[0] == "string"
+			&& typeof jobj.message_r.background[1] == "string"
+			&& typeof jobj.message_r.isDPCircular == "boolean"
+			&& (typeof jobj.message_r.fontsize == "number" || typeof jobj.message_r.fontsize == "string")
+			&& typeof jobj.message_r.font == "string"
+			&& typeof jobj.message_s.color == "string"
+			&& typeof jobj.message_s.background[0] == "string"
+			&& typeof jobj.message_s.background[1] == "string"
+			&& (typeof jobj.message_s.fontsize == "number" || typeof jobj.message_s.fontsize == "string")
+			&& typeof jobj.message_s.font == "string"
+			&& (typeof jobj.height == "number" || typeof jobj.height == "string")
+			&& typeof jobj.isInpageEnabled == "boolean"
+			&& typeof jobj.signature == "string"
+			&& (typeof jobj.timestamp == "number" || typeof jobj.height == "string")
+			);
+	},
+
 	/**
 	 * function that initialises the fcc
 	 * @param: void
@@ -198,8 +229,7 @@ if( property.count == 1 ) {
 }
 
 	
-function applyChanges()
-{
+function applyChanges() {
 	$("#loader").fadeIn();
 	// -- set properties to chromeStorage
 	property.timestamp = fcc._getTimeStamp();
@@ -245,6 +275,49 @@ $(document).ready(function() {
 	var frnames = ['minhaz', 'abhinav', 'ashutosh', 'ayush', 'bhavuk', 'aditya', 'aditi', 'arushi', 'dhruv', 'hitesh', 'arshad', 'sharvari', 'richa', 'nida', 'divyanshu'];
 	var r = (Math.round(Math.random()*1000) % frnames.length);
 	$("#exampletitlebar").html(frnames[r]);
+
+	$("#_theme_import_button").on('click', function() {
+		$("#_theme_import_status").html("");
+		$("#_theme_import_status").removeClass("error").removeClass("success");
+
+		var json_string = $("#_theme_import textarea").val().trim();
+		if (!json_string.length) {
+			$("#_theme_import_status").html("Enter the theme code first!");
+			$("#_theme_import_status").removeClass("success").addClass("error");
+			return;
+		} else {
+			var jobj;
+			try {
+				jobj = JSON.parse(json_string);
+			} catch(err) {
+				$("#_theme_import_status").html("invalid theme file!");
+				$("#_theme_import_status").removeClass("success").addClass("error");
+				return;
+			}
+			if (fcc._verify_json(jobj)) {
+				property = jobj;
+				fcc._setTitleBarProperties();
+				fcc._setBackgroundProperties();
+				fcc._resetUI();
+				$("#_theme_import_status").html("theme applied, click apply to set!");
+				$("#_theme_import_status").removeClass("error").addClass("success");
+			} else {
+				$("#_theme_import_status").html("incorrect theme file!");
+				$("#_theme_import_status").removeClass("success").addClass("error");
+			}
+		}
+	});
+
+	$("#_theme_export textarea").on('click', function() {$(this).select();});
+	$("#_theme_export_button").on('click', function() {
+		var json_string = JSON.stringify(property);
+		$("#_theme_export textarea").val(json_string);
+		$("#_theme_export").slideDown();
+		$("#_theme_export_status").html("copy this theme code!");
+		$("#_theme_export_status").removeClass("error").addClass("success");
+	});
+
+
 
 	// -- main submit button
 	$("#apply").click(function() {

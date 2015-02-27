@@ -18,7 +18,7 @@
 	</div>
 </header>
 <section>
-	<div class="s __titlebar active">
+	<div class="s __titlebar">
 		<div class="s_header">Chat titlebar</div>
 		<div class="s_section">
 			<div class="s_demo">
@@ -201,24 +201,32 @@
 		</div>
 		
 	</div>
-	<div class="s more">
+	<div class="s more active">
 		<div class="s_header">More..</div>
 		<div class="s_section">
 			<div class='option' style='margin-top:5px;'>
 				<input type='checkbox' id='isInpageEnabled'> <div id="iielabel" style="cursor:pointer;display:inline">Enable inPage Customisation (Reload Required)</div>
 			</div>
-			<div class="option">
-				 <div class="leftpane">
-				 	<a href="javascript: void(0)">Import theme</a>
-				 </div>
-				 <div class="rightpane">
-				 </div>
+			<div class="option" style="padding-bottom: 5px;border-bottom: 1px solid rgba(128, 128, 128, 0.37);margin-bottom: 10px;">
+			 	<span>Import theme</span>
+			 	<div id="_theme_import">
+			 		<textarea placeholder="paste the theme code here.."></textarea>
+			 		<span><input type="button" id="_theme_import_button" value="import"></span>
+			 		&nbsp;<span id="_theme_import_status"></span>
+			 	</div>
 			</div>
 			<div class="option">
-				 <div class="leftpane">
-				 	<a href="javascript: void(0)">Export current theme</a>
-				 </div>
-				 <div class="rightpane">
+				 <span>Export <!-- / Share current --> theme: </span>
+				 &nbsp;
+				 <span>
+				 	<span class="span_button" id="_theme_export_button">export</span>
+				 	<!--
+				 	&nbsp;|&nbsp;
+				 	<span class="span_button" id="_theme_share_button">share</span>
+				 	-->
+				 <div id="_theme_export" style="display: none">
+				 	<textarea style="height: 50px"></textarea>
+				 	<span id="_theme_export_status"></span>
 				 </div>
 			</div>
 		</div>
