@@ -208,6 +208,15 @@ var fcc = {
 
 			current_property = property;
 			fcc._update_theme_view(current_property, 0);
+
+			/**
+			 * for reloading the page when extension runs for the first time
+			 */
+			if( property.count == 1 ) {
+				property.isFirsttime = 'NO';
+				fcc._setProperties();
+				chrome.tabs.executeScript( { code: "location.reload();"});
+			}
 		});
 
 		// Set theme view
@@ -256,17 +265,6 @@ fcc._update_theme_view = function(obj, id) {
 
 // init the process
 fcc._init();
-
-
-/**
- * for reloading the page when extension runs for the first time
- */
-if( property.count == 1 ) {
-	property.isFirsttime = 'NO';
-	fcc._setProperties();
-	chrome.tabs.executeScript( { code: "document.location.reload();"});
-}
-
 	
 function applyChanges() {
 	$("#loader").fadeIn();
