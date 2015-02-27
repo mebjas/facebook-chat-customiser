@@ -13,6 +13,7 @@ facebook-chat-customiser
  - Change these directly from the facebook menu!
 
 ###Screenshots
+![screenshot - 2](./screenshots/sc2.jpg)
 
 ###Contributors
 **A V Minhaz** - `minhazav@gmail.com`
