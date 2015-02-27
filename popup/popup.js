@@ -15,7 +15,7 @@ var property = {
 		color: 'white',
 		background: '#0080c0',
 		opacity: 75,
-		bg: ''
+		bg: 'rgba(0, 128, 192, 0.75)'
 	},
 	body: {
 		background: '#edeff4',
@@ -44,6 +44,8 @@ var property = {
 	signature: 'cryptofcc',
 	timestamp: 0
 };
+
+default_property = property;
 
 /**
  * Converts a hex value to rgb values
@@ -102,6 +104,10 @@ var fcc = {
 		$("#fontsize").val(property.message_r.fontsize);
 		$("#fontcolor").val(property.message_r.color);
 
+		$("#_font").val(property.message_s.font);
+		$("#_fontsize").val(property.message_s.fontsize);
+		$("#_fontcolor").val(property.message_s.color);
+
 		$("#examplefont").css('font-family', property.message_r.font)
 							.css('font-size', property.message_r.fontsize +'px')
 							.css('color', property.message_r.color);
@@ -112,6 +118,7 @@ var fcc = {
 		$("#_examplefont").css('font-family', property.message_s.font)
 							.css('font-size', property.message_s.fontsize +'px')
 							.css('color', property.message_s.color);
+
 		$("#_examplefont").css("background-image", "-webkit-linear-gradient(bottom, " +property.message_s.background[0] +", " +property.message_s.background[1] +")");
 		$("#msg_s_1").val(property.message_s.background[0]);
 		$("#msg_s_2").val(property.message_s.background[1]);
@@ -139,6 +146,17 @@ var fcc = {
 		}
 
 		document.getElementById('isInpageEnabled').checked = property.isInpageEnabled;
+
+		// Update values for other themes as well
+		classy_property.count = property.count;
+		classy_property.timestamp = property.timestamp;
+		classy_property.isfirstTime = property.isfirstTime;
+		funky_property.count = property.count;
+		funky_property.timestamp = property.timestamp;
+		funky_property.isfirstTime = property.isfirstTime;
+		default_property.count = property.count;
+		default_property.timestamp = property.timestamp;
+		default_property.isfirstTime = property.isfirstTime;
 	},
 
 	_verify_json: function(jobj) {
@@ -187,8 +205,15 @@ var fcc = {
 			property.count++;
 			fcc._setTitleBarProperties();
 			fcc._setProperties();	// Refresh properties to localStorage
+
+			current_property = property;
+			fcc._update_theme_view(current_property, 0);
 		});
-		
+
+		// Set theme view
+		fcc._update_theme_view(classy_property, 1);
+		fcc._update_theme_view(funky_property, 2);
+		fcc._update_theme_view(default_property, 3);
 	}
 };
 
@@ -213,6 +238,20 @@ fcc._setBackgroundProperties = function() {
 	$("#examplebody").css("background-color", property.body.bg);
 };
 
+// For themes
+fcc._update_theme_view = function(obj, id) {
+	$(".__theme_view").eq(id).html("");
+	for(i = 0; i < 8; i++) {
+		$(".__theme_view").eq(id).append("<span></span>");
+	}
+	$(".__theme_view").eq(id).children("span").eq(0).css("background", obj.titlebar.bg);
+	$(".__theme_view").eq(id).children("span").eq(1).css("background", obj.titlebar.color);
+	$(".__theme_view").eq(id).children("span").eq(2).css("background", obj.body.bg);
+	$(".__theme_view").eq(id).children("span").eq(3).css("background", "-webkit-linear-gradient(bottom, " +obj.message_r.background[0] +", " +obj.message_r.background[1] +")");
+	$(".__theme_view").eq(id).children("span").eq(4).css("background", obj.message_r.color);
+	$(".__theme_view").eq(id).children("span").eq(5).css("background", "-webkit-linear-gradient(bottom, " +obj.message_s.background[0] +", " +obj.message_s.background[1] +")");
+	$(".__theme_view").eq(id).children("span").eq(6).css("background", obj.message_s.color);
+}
 
 
 // init the process
@@ -248,6 +287,10 @@ function applyChanges() {
 	if (reloadRequired) {
 		chrome.tabs.executeScript( { code: 'location.reload();'});	
 	}
+
+	current_property = property;
+	fcc._update_theme_view(current_property, 0);
+	$(".s.__themes .s_section .option").eq(0).click();
 }
 
 
@@ -317,7 +360,40 @@ $(document).ready(function() {
 		$("#_theme_export_status").removeClass("error").addClass("success");
 	});
 
+	$(".s.__themes .s_section .option").on('click', function() {
+		$(".s.__themes .s_section .option").attr("checked", "false");
+		var new_selection = parseInt($(this).attr("val"));
+		// Change the theme
 
+		if (new_selection == 0) {
+			current_property.timestamp = property.timestamp;
+			property = current_property;
+			fcc._setTitleBarProperties();
+			fcc._setBackgroundProperties();
+			fcc._resetUI();
+		} else if (new_selection == 1) {
+			classy_property.timestamp = property.timestamp;
+			property = classy_property;
+			fcc._setTitleBarProperties();
+			fcc._setBackgroundProperties();
+			fcc._resetUI();
+		} else if (new_selection == 2) {
+			funky_property.timestamp = property.timestamp;
+			property = funky_property;
+			fcc._setTitleBarProperties();
+			fcc._setBackgroundProperties();
+			fcc._resetUI();
+		} else if (new_selection == 3) {
+			default_property.timestamp = property.timestamp;
+			property = default_property;
+			fcc._setTitleBarProperties();
+			fcc._setBackgroundProperties();
+			fcc._resetUI();
+		}
+
+		$(".s.__themes .s_section .option.selected").removeClass("selected");
+		$(this).addClass("selected");
+	});
 
 	// -- main submit button
 	$("#apply").click(function() {

@@ -14,7 +14,7 @@ var property = {
 		color: 'white',
 		background: '#0080c0',
 		opacity: 75,
-		bg: ''
+		bg: 'rgba(0, 128, 192, 0.75)'
 	},
 	body: {
 		background: '#edeff4',

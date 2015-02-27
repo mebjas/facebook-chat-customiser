@@ -185,6 +185,33 @@ span.span_button:hover {
 	cursor: pointer;
 	text-decoration: underline;
 }
+.__theme_view {
+	width: 200px;
+	display: inline-block;
+	height: 15px;
+	float: right;
+	border: 1px solid rgba(192, 192, 192, 0.14);
+	padding: 0px;
+	margin: 0px;
+	overflow: hidden;
+}
+.__theme_view span {
+	display: inline-block;
+	height: 100%;
+	width: 14.28%;
+	margin: 0px;
+}
+
+.s.__themes .s_section .option:hover, .s.__themes .s_section .option.selected {
+	background: rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+}
+
+.s.__themes .s_section .option {
+	padding: 5px 10px;
+	min-height: 16px;
+	font-size: 13pt;
+}
 /** 
 ---------------------------------------------------------
 default values for examples
