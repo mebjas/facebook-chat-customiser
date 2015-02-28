@@ -31,13 +31,17 @@ var property = {
 		background: ['#FFFFFF', '#F9F9F9'],
 		isDPCircular: true,
 		fontsize: 12,
-		font: 'Calibri'
+		font: 'Calibri',
+		bold: false,
+		italics: false
 	},
 	message_s: {
 		color: 'black',
 		background: ['#c7defe', '#e7f1fe'],
 		fontsize: 12,
-		font: 'Calibri'
+		font: 'Calibri',
+		bold: false,
+		italics: false
 	},
 	height: 500,
 	isInpageEnabled: true,
@@ -112,14 +116,58 @@ var fcc = {
 							.css('font-size', property.message_r.fontsize +'px')
 							.css('color', property.message_r.color);
 		$("#examplefont").css("background-image", "-webkit-linear-gradient(bottom, " +property.message_r.background[0] +", " +property.message_r.background[1] +")");
+
+		// Set bold and italics
+		if (property.message_r.bold) {
+			$("#examplefont").css("font-weight", "bold");
+			$("#msg_r_b").attr("state", "true");
+			$("#msg_r_b").addClass("b_but_active");
+		} else {
+			$("#examplefont").css("font-weight", "none");
+			$("#msg_r_b").attr("state", "false");
+			$("#msg_r_b").removeClass("b_but_active");
+		}
+
+		if (property.message_r.italics) {
+			$("#examplefont").css("font-style", "italic");
+			$("#msg_r_i").attr("state", "true");
+			$("#msg_r_i").addClass("b_but_active");
+		} else {
+			$("#examplefont").css("font-style", "none");
+			$("#msg_r_i").attr("state", "false");
+			$("#msg_r_i").removeClass("b_but_active");
+		}
 		$("#msg_r_1").val(property.message_r.background[0]);
 		$("#msg_r_2").val(property.message_r.background[1]);
 
+
+		// --------- message_s object --------------------------------------
 		$("#_examplefont").css('font-family', property.message_s.font)
 							.css('font-size', property.message_s.fontsize +'px')
 							.css('color', property.message_s.color);
 
 		$("#_examplefont").css("background-image", "-webkit-linear-gradient(bottom, " +property.message_s.background[0] +", " +property.message_s.background[1] +")");
+		// Set bold and italics
+		if (property.message_s.bold) {
+			$("#_examplefont").css("font-weight", "bold");
+			$("#msg_s_b").attr("state", "true");
+			$("#msg_s_b").addClass("b_but_active");
+		} else {
+			$("#_examplefont").css("font-weight", "none");
+			$("#msg_s_b").attr("state", "false");
+			$("#msg_s_b").removeClass("b_but_active");
+		}
+
+		if (property.message_s.italics) {
+			$("#_examplefont").css("font-style", "italic");
+			$("#msg_s_i").attr("state", "true");
+			$("#msg_s_i").addClass("b_but_active");
+		} else {
+			$("#_examplefont").css("font-style", "none");
+			$("#msg_s_i").attr("state", "false");
+			$("#msg_s_i").removeClass("b_but_active");
+		}
+
 		$("#msg_s_1").val(property.message_s.background[0]);
 		$("#msg_s_2").val(property.message_s.background[1]);
 
@@ -133,10 +181,6 @@ var fcc = {
 		$("#color_background").val(property.body.background);
 		$("#color_titlebar").val(property.titlebar.background);
 		$("#color_titlebar_text").val(property.titlebar.color);
-
-		// -- set the titlebar and background demo
-		// @todo - change this to demo titlebar
-		// $("#demo_titlebar").css('background-color', property.titlebar);
 
 		document.getElementById('isDPCircular').checked = property.message_r.isDPCircular;
 		if (property.message_r.isDPCircular) {
@@ -181,6 +225,8 @@ var fcc = {
 			&& typeof jobj.message_r.background[0] == "string"
 			&& typeof jobj.message_r.background[1] == "string"
 			&& typeof jobj.message_r.isDPCircular == "boolean"
+			&& typeof jobj.message_r.bold == "boolean"
+			&& typeof jobj.message_r.italics == "boolean"
 			&& (typeof jobj.message_r.fontsize == "number" || typeof jobj.message_r.fontsize == "string")
 			&& typeof jobj.message_r.font == "string"
 			&& typeof jobj.message_s.color == "string"
@@ -188,6 +234,8 @@ var fcc = {
 			&& typeof jobj.message_s.background[1] == "string"
 			&& (typeof jobj.message_s.fontsize == "number" || typeof jobj.message_s.fontsize == "string")
 			&& typeof jobj.message_s.font == "string"
+			&& typeof jobj.message_s.bold == "boolean"
+			&& typeof jobj.message_s.italics == "boolean"
 			&& (typeof jobj.height == "number" || typeof jobj.height == "string")
 			&& typeof jobj.isInpageEnabled == "boolean"
 			&& typeof jobj.signature == "string"
@@ -398,6 +446,10 @@ $(document).ready(function() {
 		$(this).addClass("selected");
 	});
 
+	$("#_theme_export_button_close").on('click', function() {
+		$("#_theme_export:visible").slideUp();
+	});
+
 	// -- main submit button
 	$("#apply").click(function() {
 		applyChanges();
@@ -512,6 +564,52 @@ $(document).ready(function() {
 			property.isInpageEnabled = false;
 		}
 		reloadRequired = true;
+		fcc._resetUI();
+	});
+
+	// -- bold italics change object
+	$("#msg_r_b").on('click', function() {
+		var state = $(this).attr("state");
+		if (state == "false") {
+			$(this).attr("state", "true");
+			property.message_r.bold = true;
+		} else {
+			$(this).attr("state", "false");
+			property.message_r.bold = false;
+		}
+		fcc._resetUI();
+	});
+	$("#msg_r_i").on('click', function() {
+		var state = $(this).attr("state");
+		if (state == "false") {
+			$(this).attr("state", "true");
+			property.message_r.italics = true;
+		} else {
+			$(this).attr("state", "false");
+			property.message_r.italics = false;
+		}
+		fcc._resetUI();
+	});
+	$("#msg_s_b").on('click', function() {
+		var state = $(this).attr("state");
+		if (state == "false") {
+			$(this).attr("state", "true");
+			property.message_s.bold = true;
+		} else {
+			$(this).attr("state", "false");
+			property.message_s.bold = false;
+		}
+		fcc._resetUI();
+	});
+	$("#msg_s_i").on('click', function() {
+		var state = $(this).attr("state");
+		if (state == "false") {
+			$(this).attr("state", "true");
+			property.message_s.italics = true;
+		} else {
+			$(this).attr("state", "false");
+			property.message_s.italics = false;
+		}
 		fcc._resetUI();
 	});
 

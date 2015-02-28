@@ -30,13 +30,17 @@ var property = {
 		background: ['#FFFFFF', '#F9F9F9'],
 		isDPCircular: true,
 		fontsize: 12,
-		font: 'Calibri'
+		font: 'Calibri',
+		bold: false,
+		italics: false
 	},
 	message_s: {
 		color: 'black',
 		background: ['#c7defe', '#e7f1fe'],
 		fontsize: 12,
-		font: 'Calibri'
+		font: 'Calibri',
+		bold: false,
+		italics: false
 	},
 	height: 500,
 	isInpageEnabled: true,

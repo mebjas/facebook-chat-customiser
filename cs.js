@@ -95,13 +95,25 @@ function clicked(broadcast, callback) {
 		$("._1nc7 ._5w1r").css("font-family", property.message_r.font);
 		$("._1nc7 ._5w1r").css("background-image", "-webkit-linear-gradient(bottom, " +property.message_r.background[0] +", " +property.message_r.background[1] +")");
 
+		if (property.message_r.bold) $("._1nc7 ._5w1r").css("font-weight", "bold");
+		else $("._1nc7 ._5w1r").css("font-weight", "none");
+		if (property.message_r.italics) $("._1nc7 ._5w1r").css("font-style", "italic");
+		else $("._1nc7 ._5w1r").css("font-style", "none");
+		
+
 		// for sender
 		$("._1nc6 ._5w1r").css("color", property.message_s.color);
 		$("._1nc6 ._5w1r").css("font-size", property.message_s.fontsize +"px");
 		$("._1nc6 ._5w1r").css("font-family", property.message_s.font);
 		$("._1nc6 ._5w1r").css("background-image", "-webkit-linear-gradient(bottom, " +property.message_s.background[0] +", " +property.message_s.background[1] +")");
 
+		if (property.message_s.bold) $("._1nc6 ._5w1r").css("font-weight", "bold");
+		else $("._1nc6 ._5w1r").css("font-weight", "none");
+		if (property.message_s.italics) $("._1nc6 ._5w1r").css("font-style", "italic");
+		else $("._1nc6 ._5w1r").css("font-style", "none");
+
 		$("._1nc6 ._5w1r, ._1nc7 ._5w1r").css("webkit-box-shadow", "none");
+
 
 
 		// to remove <==== in box

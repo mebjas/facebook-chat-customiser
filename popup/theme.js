@@ -24,13 +24,17 @@ var classy_property = {
 		background: ['#b3ebdc', '#63dff0'],
 		isDPCircular: false,
 		fontsize: 12,
-		font: 'Tahoma'
+		font: 'Tahoma',
+		bold: false,
+		italics: false
 	},
 	message_s: {
 		color: '#010004',
 		background: ['#fea38d', '#f0e159'],
 		fontsize: 12,
-		font: 'Tahoma'
+		font: 'Tahoma',
+		bold: false,
+		italics: false
 	},
 	height: 520,
 	isInpageEnabled: true,
@@ -59,13 +63,17 @@ var funky_property = {
 		background: ['#e1e933', '#f26257'],
 		isDPCircular: true,
 		fontsize: 12,
-		font: 'Tahoma'
+		font: 'Tahoma',
+		bold: true,
+		italics: false
 	},
 	message_s: {
 		color: '#010004',
 		background: ['#48f732', '#f0e159'],
 		fontsize: 12,
-		font: 'Tahoma'
+		font: 'Tahoma',
+		bold: true,
+		italics: false
 	},
 	height: 520,
 	isInpageEnabled: true,

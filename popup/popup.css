@@ -216,6 +216,34 @@ span.span_button:hover {
 	font-size: 13pt;
 	position: relative;
 }
+span.b_buttons {
+	color: black;
+	background: white;
+	width: 30px;
+	display: inline-block;
+	text-align: center;
+	padding: 2px 0px;
+	border: 1px solid rgba(0, 0, 0, 0.46);
+	border-radius: 5px;
+	margin: 0px;
+	float: right;
+}
+span.b_buttons.b_but_active {
+	background: -webkit-linear-gradient(bottom, rgb(71, 124, 176), rgb(60, 169, 226)) white;
+	color: white;
+}
+span.b_buttons:hover {
+	background: -webkit-linear-gradient(bottom, rgb(173, 190, 207), rgb(60, 169, 226)) white;
+	color: white;
+	cursor: pointer;
+}
+span#msg_r_b, span#msg_s_b {
+	border-radius: 5px 0px 0px 5px;
+}
+span#msg_r_i, span#msg_s_i {
+	border-radius: 0px 5px 5px 0px;
+	border-left: none;
+}
 /** 
 ---------------------------------------------------------
 default values for examples
