@@ -320,6 +320,7 @@ fcc._update_theme_view = function(obj, id) {
 fcc._init();
 	
 function applyChanges() {
+	$("#share_theme_error").hide();
 	$("#loader").fadeIn();
 	// -- set properties to chromeStorage
 	property.timestamp = fcc._getTimeStamp();
