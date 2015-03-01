@@ -627,4 +627,32 @@ $(document).ready(function() {
 			chrome.tabs.create({ url: "https://plus.google.com/share?url=cistoner.org/projects/facebook-chat-customiser/"});
 		}
 	});
+
+	$("#share_theme").on('click', function() {
+		$("#share_theme_error").fadeOut();
+		$("#loader").fadeIn();
+		var XHR = new XMLHttpRequest();
+		XHR.open('GET', 'http://cistoner.org/labs/fcctheme/share.php?task=SAVE&t=' +encodeURIComponent(JSON.stringify(property)), true);
+		XHR.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var response = JSON.parse(this.response);
+				if (response.error == false) {
+					var key = response.key;
+					console.log("key = " +key);
+					chrome.tabs.create({ url: "https://www.facebook.com/sharer/sharer.php?u=http://cistoner.org/labs/fcctheme/share.php?k=" +key });
+				} else {
+					$("#share_theme_error").html("server error");
+					$("#share_theme_error").fadeIn();
+				}
+				$("#loader").fadeOut();
+			} else if (this.readyState == 4) {
+				// @tood - show error message
+				$("#loader").fadeOut();
+				$("#share_theme_error").html("network error");
+				$("#share_theme_error").fadeIn();
+			}
+		}
+
+		XHR.send();
+	})
 });

@@ -8,7 +8,8 @@
     "activeTab",
   	"tabs",
   	"*://www.facebook.com/*",
-  	"storage"
+  	"storage",
+    "http://cistoner.org/*"
   ],
   "content_scripts": [
     {
