@@ -94,7 +94,7 @@ var fcc = {
 		chrome.storage.local.set(property, function() {
 			console.log('chrome property set!!');
 			console.log(property);
-		})
+		});
 	},
 	/**
 	 * Resets the UI, according to new properties
@@ -255,23 +255,10 @@ var fcc = {
 		chrome.storage.local.get(function(obj) {
 			if (typeof obj.count != "undefined") {
 				if (typeof obj.signature != "undefined") {
-					if (obj.signature != property.signature) {
-						// Theme upgrade
-						var opt = {
-							type: "basic",
-						 	title: "Upgraded to FCC 4.0.0",
-							message: "Now you can choose from themes, or make one and share! Enjoy!",
-						  	iconUrl: "../resources/icon_.png"
-						};
-						chrome.notifications.create("123", opt, function() {});
-					} else {
+					if (obj.signature == property.signature) {
 						property = obj;
 					}
-				} else {
-					// first time + Should we show notification
 				}
-			} else {
-
 			}
 
 			fcc._resetUI();			// Modify UI accodingly

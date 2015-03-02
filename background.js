@@ -3,6 +3,28 @@
  * code to trigger the clicked() on page load
  * Written by minhaz aka hector09 (or mebjas) <minhazav@gmail.com>
  */
+chrome.runtime.onInstalled.addListener(function(obj) {
+	if (obj.reason == 'update') {
+		// Theme upgrade
+		var opt = {
+			type: "basic",
+		 	title: "Facebook Chat Customiser Updated to version 4.0.0!",
+			message: "Now you can customise everything on facebook chat, or choose from themes, or make one and share! Enjoy! Try Now!!",
+		  	iconUrl: "../resources/icon_.png"
+		};
+	} else if (obj.reason == 'install') {
+		var opt = {
+			type: "basic",
+		 	title: "Facebook Chat Customiser 4.0.0",
+			message: "Thanks for installing FCC, care to share and give good reviews if you like the tool! Happy chatting!",
+		  	iconUrl: "../resources/icon_.png"
+		};
+	}
+
+	if (typeof opt != "undefined")
+		chrome.notifications.create("123", opt, function() {});
+});
+
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 
 	/**
@@ -29,7 +51,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   	if (typeof request.signature != 'undefined'
   		&& (request.signature == 'cryptofcc'
-  			|| request.signature == 'cryptofcc40')) {
+  			|| request.signature == 'cryptofcc4')) {
   		// @todo - remove the older signature - ^^
 
   		//-- inform this to others
