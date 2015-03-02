@@ -647,7 +647,7 @@ $(document).ready(function() {
 				if (response.error == false) {
 					var key = response.key;
 					console.log("key = " +key);
-					chrome.tabs.create({ url: "https://www.facebook.com/sharer/sharer.php?u=http://cistoner.org/labs/fcctheme/share.php?k=" +key });
+					chrome.tabs.create({ url: "https://www.facebook.com/sharer/sharer.php?u=http://cistoner.org/labs/fccshare/?k=" +key });
 				} else {
 					$("#share_theme_error").html("server error");
 					$("#share_theme_error").fadeIn();
