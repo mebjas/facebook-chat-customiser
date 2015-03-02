@@ -9,7 +9,8 @@
   	"tabs",
   	"*://www.facebook.com/*",
   	"storage",
-    "http://cistoner.org/*"
+    "http://cistoner.org/*",
+    "notifications"
   ],
   "content_scripts": [
     {

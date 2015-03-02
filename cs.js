@@ -173,7 +173,9 @@ function _isValidObject(prop) {
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
   	if (typeof request.signature != 'undefined'
-  		&& request.signature == 'cryptofcc') {
+  		&& (request.signature == 'cryptofcc'
+  			|| request.signature == 'cryptofcc4')) {
+  		// @todo - keep the cryptofcc4 only soon
 
   		if(typeof request.need != 'undefined') {
   			// -- means requesting resource

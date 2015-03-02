@@ -38,7 +38,7 @@ var classy_property = {
 	},
 	height: 520,
 	isInpageEnabled: true,
-	signature: 'cryptofcc'
+	signature: 'cryptofcc4'
 };
 
 var funky_property = {
@@ -77,7 +77,7 @@ var funky_property = {
 	},
 	height: 520,
 	isInpageEnabled: true,
-	signature: 'cryptofcc'
+	signature: 'cryptofcc4'
 };
 
 var default_property;

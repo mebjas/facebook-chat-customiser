@@ -45,8 +45,9 @@ var property = {
 	},
 	height: 500,
 	isInpageEnabled: true,
-	signature: 'cryptofcc',
-	timestamp: 0
+	signature: 'cryptofcc4',
+	timestamp: 0,
+	test: 'boo'
 };
 
 default_property = property;
@@ -116,6 +117,8 @@ var fcc = {
 							.css('font-size', property.message_r.fontsize +'px')
 							.css('color', property.message_r.color);
 		$("#examplefont").css("background-image", "-webkit-linear-gradient(bottom, " +property.message_r.background[0] +", " +property.message_r.background[1] +")");
+
+		$("#examplebody").css("background-color", property.body.bg);
 
 		// Set bold and italics
 		if (property.message_r.bold) {
@@ -251,7 +254,24 @@ var fcc = {
 	_init: function() {
 		chrome.storage.local.get(function(obj) {
 			if (typeof obj.count != "undefined") {
-				property = obj;
+				if (typeof obj.signature != "undefined") {
+					if (obj.signature != property.signature) {
+						// Theme upgrade
+						var opt = {
+							type: "basic",
+						 	title: "Upgraded to FCC 4.0.0",
+							message: "Now you can choose from themes, or make one and share! Enjoy!",
+						  	iconUrl: "../resources/icon_.png"
+						};
+						chrome.notifications.create("123", opt, function() {});
+					} else {
+						property = obj;
+					}
+				} else {
+					// first time + Should we show notification
+				}
+			} else {
+
 			}
 
 			fcc._resetUI();			// Modify UI accodingly

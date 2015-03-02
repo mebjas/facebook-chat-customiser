@@ -44,7 +44,7 @@ var property = {
 	},
 	height: 500,
 	isInpageEnabled: true,
-	signature: 'cryptofcc',
+	signature: 'cryptofcc4',
 	timestamp: 0
 };
 

@@ -28,7 +28,9 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
  */
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   	if (typeof request.signature != 'undefined'
-  		&& request.signature == 'cryptofcc') {
+  		&& (request.signature == 'cryptofcc'
+  			|| request.signature == 'cryptofcc40')) {
+  		// @todo - remove the older signature - ^^
 
   		//-- inform this to others
   		// -- pass these info to all active tabs
