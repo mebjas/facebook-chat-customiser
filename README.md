@@ -1,5 +1,6 @@
 facebook-chat-customiser
 ========================
+[![Gitter chat](https://badges.gitter.im/mebjas/facebook-chat-customiser.png)](https://gitter.im/mebjas/facebook-chat-customiser)
 ###About
  - `Description:` Chrome extension to customise Facebook's chat interface!
  - `Short Name:` `fcc`
