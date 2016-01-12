@@ -3,14 +3,14 @@ body {
 	margin:0px;
 	padding:0px;
 	color:#627bae;
-	font-family: Calibri;
+	font-family: Segoe UI, Arial, sans-serif;
 }
 footer
 {
 	font-size: 10pt;
 	padding: 1px 10px 5px 6px;
 	color: grey;
-	font-family: calibri;
+	font-family: Segoe UI, Arial, sans-serif;
 	border-top: 1px solid silver;
 		background-image: url(../resources/sic.png);
 	background-repeat: no-repeat;
@@ -67,7 +67,7 @@ input[type="button"] {
 	color: white;
 	padding: 20px 10px 20px 10px;
 	font-size: 18pt;
-	font-family: Calibri;
+	font-family: Segoe UI, Arial, sans-serif;
 	display: none;
 }
 #sharebutton,#sharebuttonhide {
@@ -98,7 +98,7 @@ header {
 	background: #0C81C8;
 	padding: 10px 0px 0px 35px;
 	color: white;
-	font-family: calibri, fantasy;
+	font-family: Segoe UI, Arial, sans-serif;
 	font-size: 18px;
 	-webkit-transition: background .6s;
 	background-image: url(../resources/cog.png);
