@@ -97,7 +97,7 @@
 		</div>
 	</div>
 	<div class="s message_y">
-		<div class="s_header">Chat message - Senders</div>
+		<div class="s_header">Chat message - yours</div>
 		<div class="s_section">
 			<div class="s_demo">
 				<div style="display: block;padding:0px;min-height: 110px;position: relative">
@@ -163,7 +163,7 @@
 		</div>
 	</div>
 	<div class="s message_s">
-		<div class="s_header">Chat message - Yours</div>
+		<div class="s_header">Chat message - senders</div>
 		<div class="s_section">
 			<div class="s_demo">
 				<div style="display: block;padding:0px;min-height: 100px;position: relative">
